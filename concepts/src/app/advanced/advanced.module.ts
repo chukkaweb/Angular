@@ -5,18 +5,19 @@ import { AdvancedComponent } from './advanced/advanced.component';
 import { ObservablesComponent } from './rxjs/observables/observables.component';
 import { OperatorsComponent } from './rxjs/operators/operators.component';
 import { SubjectsComponent } from './rxjs/subjects/subjects.component';
-
+import { SharedModule } from '../shared/shared.module';
+import { DynamicformsComponent } from './forms/dynamic-forms/dynamicforms.component';
+import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.component';
 
 @NgModule({
   declarations: [
     AdvancedComponent,
     ObservablesComponent,
     OperatorsComponent,
-    SubjectsComponent
+    SubjectsComponent,
+    DynamicformsComponent,
+    ReactiveFormsComponent,
   ],
-  imports: [
-    CommonModule,
-    AdvancedRoutingModule
-  ]
+  imports: [CommonModule, SharedModule, AdvancedRoutingModule],
 })
-export class AdvancedModule { }
+export class AdvancedModule {}

@@ -1,0 +1,51 @@
+<div class="container">  
+    
+    <h1> </h1>  
+      
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">  
+        
+      <!-- <p>  
+        <label for="name">Product Name:</label>  
+        <input type="text" id="name" name="name" formControlName="name" class="form-control">  
+      </p>  
+       -->
+      <table class="table table-bordered" formArrayName="products">  
+  
+        <tr *ngFor="let quantity of products().controls; let i=index" [formGroupName]="i">  
+            <td>  
+              
+                <select class="custom-select form-control" formControlName="type"  (change)="changeProduct($event)" >
+                    <option value="">Choose your product type</option>
+                    <option *ngFor="let product of productsTypes" [ngValue]="product">{{product}}</option>
+                  </select>
+            </td> 
+          <td>  
+            
+              <input type="text" formControlName="qty" class="form-control" placeholder="Please enter Quantity" >  
+          </td>  
+          <td>  
+               
+              <input type="text" formControlName="price" class="form-control" placeholder="Please enter price" >  
+          </td>  
+
+          <td>  
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>  
+          </td>  
+        </tr>  
+      </table>  
+
+<div class="btn_info">
+      <button type="button" (click)="addQuantity()" style="margin-right: 20px;" class="btn btn-primary">Add a product</button>
+      <button type="submit" *ngIf="isAddProduct" class="btn btn-success">Submit</button>  
+    </div>
+        
+    </form>  
+        
+    <br/>
+    <br/>
+
+   <h3 id="validations">{{submitMsg}}</h3>   
+
+   <p>O/P:-  {{this.productForm.value | json}}</p>
+
+  </div>  

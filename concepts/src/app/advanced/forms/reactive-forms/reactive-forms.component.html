@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="row">
+      <div class="col-6">
+          
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name"  class="form-control" placeholder="Please enter name" [ngClass]="{ 'is-invalid': isFieldValid('name') }" />
+        <div *ngIf="isFieldValid('name')" class="invalid-feedback">
+     <div *ngIf="name.errors?.required">
+            Name is required
+          </div> 
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mobile</label> 
+        <input type="tel" formControlName="mobile"  placeholder="Please enter mobile number" class="form-control"  [ngClass]="{ 'is-invalid': isFieldValid('mobile') }" />
+        <div *ngIf="isFieldValid('mobile')" class="invalid-feedback">
+          <div *ngIf="mobile.errors?.required">
+            Mobile number is required
+          </div>
+    
+          <div *ngIf="mobile.errors?.pattern">
+            Please enter valid mobile number
+          </div>
+    
+          <div *ngIf="mobile.errors?.maxlength">
+            Mobile number should not be greater than 10 digits
+          </div>
+          
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label>Email</label>
+        <input placeholder="Please enter email" type="text" formControlName="email" class="form-control" [ngClass]="{'is-invalid':email.invalid && email.touched}"/>
+    
+        <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+          <div *ngIf="email.errors?.required">Email is required</div>
+          <div *ngIf="email.errors?.email">
+            Email must be a valid email address
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>City</label>
+
+        <div class="dropdown">
+          <button class="btn btn-light dropdown-toggle" style="width:100%" type="button" data-toggle="dropdown" [ngClass]="{ 'is-invalid': isFieldValid('cityName') }">
+            <span *ngIf="state === ''">Please select a state</span>
+            <span *ngIf="state !== ''">{{state}}</span>
+          <span class="caret"></span></button>
+          
+          <ul class="dropdown-menu location_dropdown_menu"  style="padding-top:0px;width:100%">
+            <li  *ngFor="let country of countries">
+              {{country.name}}</li>
+          </ul>
+
+        </div>
+      <!-- <select class="custom-select form-control" formControlName="cityName" [ngClass]="{ 'is-invalid': isFieldValid('cityName') }" >
+        <option [ngValue]="cityName"  >Choose your city</option>
+        
+      </select> -->
+      <div *ngIf="isFieldValid('cityName')" class="invalid-feedback">
+        <div *ngIf="cityName.errors?.required">
+               Please select city
+             </div> 
+           </div>
+      </div>
+    
+      <div class="form-group">
+        <label>Comment</label>
+        <textarea type="text" formControlName="comment"  class="form-control"  [ngClass]="{ 'is-invalid': isFieldValid('comment') }" placeholder="Please enter comment" ></textarea>
+        <div *ngIf="isFieldValid('comment')" class="invalid-feedback">
+          <div *ngIf="comment.errors?.required">
+            Comment is required
+          </div>
+    
+          <div *ngIf="comment.errors?.minlength">
+            Comment should be minimum 20 characters
+          </div>
+    
+          <div *ngIf="comment.errors?.maxlength">
+            Comment should be maximum 100 characters
+          </div>
+          
+    
+        </div>
+      </div>
+    
+  
+      <div class="text-right">
+        
+        <button class="btn btn-primary mr-3" [disabled]="registerForm.invalid">Submit</button>
+        <button class="btn btn-secondary" type="reset" (click)="onReset()">Reset</button>
+      </div>
+      
+  </form>
+  <button class="btn btn-secondary mr-3" type="reset" (click)="setValues()">Set Values</button>
+  </div>
+  </div>
+  </div>
+  
+  
+
