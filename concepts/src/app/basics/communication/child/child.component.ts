@@ -11,7 +11,7 @@ export class ChildComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  } 
 
 clickMe(){
   this.childInfo.emit('child component');
