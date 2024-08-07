@@ -1,3 +1,6 @@
+// For data sharing multiple components and if update any one component that should be reflect to other components
+// To implement sharing the data we can use this 
+
 // subjects are advanced to the observables 
 // these are 4 types subject , behavior subject , replay subject, async subject
 
