@@ -33,17 +33,11 @@ import { AsyncSubject, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
   `
 })
 
-
 export class SubjectsComponent {
 
-  // type ObservableType = { value: {}, color: string };
-  // observables: ObservableType[] = [];
-
-  observables: any = [];
-
   constructor() {
-    // this.subject();
-    // this.behaviorSubject();
+    this.subject();
+    this.behaviorSubject();
     this.replaySubject();
     this.asyncSubject();
   }

@@ -1,3 +1,6 @@
+# short cuts
+component creation  ng g c plan --skip-tests --inline-style --inline-template
+
 # Concepts
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.

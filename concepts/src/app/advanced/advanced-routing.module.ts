@@ -8,9 +8,11 @@ import { DynamicformsComponent } from './forms/dynamic-forms/dynamicforms.compon
 import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.component';
 import { AuthComponent } from './auth/auth.component';
 import { SubjectsComponent } from './rxjs/subjects/subjects.component';
+import { NgrxComponent } from './ngrx/ngrx/ngrx.component';
 
 const routes: Routes = [
   { path: '', component: AdvancedComponent },
+  { path: 'ngrx', component: NgrxComponent },
   { path: 'subjects', component: SubjectsComponent },
   { path: 'operators', component: OperatorsComponent },
   { path: 'observables', component: ObservablesComponent },
