@@ -11,7 +11,6 @@
 	Selectors: Functions that query the store and return parts of the state.
 	Effects: Handle side effects, such as API calls, and dispatch actions based on external interactions.
 
-
 # Store: The store is what holds the app's state. 
 # Action:
 A unique event dispatched from components and services that describe how the state should be changed. 
@@ -53,7 +52,6 @@ Reducer(state, action) {  state - previous state , action  dispatch functi
 	How to use (select) store data 
 	How to update state using dispatch method. 
 	Store data subscribe using select 
-
 
 
 # Ngrx effects

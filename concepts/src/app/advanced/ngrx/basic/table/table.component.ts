@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store';
 export class TableComponent {
   user: any;
   constructor(private store: Store<any>) {
-
     store.select('user').subscribe(
       data => {
         this.user = data;

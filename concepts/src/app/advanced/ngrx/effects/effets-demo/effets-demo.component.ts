@@ -19,8 +19,7 @@ export class EffetsDemoComponent {
     this.store.select('users').subscribe(
       data => {
         this.users = data.users;
-        this.error = data.apiError
-
+        this.error = data.apiError;
       }
     )
   }

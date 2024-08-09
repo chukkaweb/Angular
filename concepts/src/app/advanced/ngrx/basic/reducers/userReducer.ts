@@ -11,7 +11,6 @@ export const userReducer = createReducer(initialState,
   on(updateName, (state, { name }) => ({ ...state, name: name })),
   on(updateEmail, (state, { email }) => ({ ...state, email: email })),
   // on(updateMobile, (state, { mobile }) => ({ ...state, mobile: mobile })),
-
 )
 
 

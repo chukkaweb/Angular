@@ -12,13 +12,14 @@ export class FormComponent {
   constructor(private store: Store<any>) { }
 
   editName(input: any) {
-    console.log(updateName({ name: input.value }))
+    
+    console.log(updateName({ name: input.value }));
     this.store.dispatch(updateName({ name: input.value }))
-    input.value = ""
+    input.value = "";
   }
   editEmail(input: any) {
     this.store.dispatch(updateEmail({ email: input.value }))
-    input.value = ""
+    input.value = "";
   }
   editMobile(input: any) {
 
