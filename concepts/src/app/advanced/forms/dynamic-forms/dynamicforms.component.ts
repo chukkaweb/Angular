@@ -10,7 +10,7 @@ export class DynamicformsComponent implements OnInit {
   productForm:any = FormGroup;  
   submitMsg = '';
   isAddProduct = false;
-  productsTypes = ['Grocery','Toys','Appliances','Jewellery']
+  productsTypes = ['Grocery','Toys','Appliances','Jewelry']
 
   constructor(private fb:FormBuilder) {
     this.productForm = this.fb.group({        
@@ -42,9 +42,6 @@ export class DynamicformsComponent implements OnInit {
     });
   }  
 
-
- 
-     
   removeQuantity(i:number) {  
     this.products().removeAt(i);  
   }  

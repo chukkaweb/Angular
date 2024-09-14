@@ -1,0 +1,27 @@
+Framework vs Library: Key Differences
+
+1. Definition:
+   - Framework: A complete structure that provides everything needed to build an application. It dictates the overall architecture and workflow.
+   - Library: A collection of predefined functions or tools you can use in your code. You call the library functions when needed.
+
+2. Control:
+   - Framework: It controls the flow of the application. You follow the framework’s rules and structure.
+   - Library: You are in control of the flow. You choose when and how to use the library.
+
+3. Usage:
+   - Framework: Gives you a skeleton of the application with built-in features (routing, data handling, etc.). Example: Angular, Django.
+   - Library: Provides specific functionality that you plug into your application as needed. Example: React, jQuery.
+
+4. Flexibility:
+   - Framework: Less flexible, as you need to stick to its rules and patterns.
+   - Library: More flexible, as you can mix and match libraries and build your application how you like.
+
+5. Inversion of Control:
+   - Framework: Calls your code based on the framework’s needs (Inversion of Control - IoC).
+   - Library: You call the library whenever required.
+
+---
+
+Example:
+- Angular (Framework): Provides a full setup for building single-page applications with built-in tools like routing and dependency injection.
+- React (Library): Provides a tool for building UI components. You decide how to manage state, routing, etc., by integrating other libraries.

@@ -10,6 +10,7 @@ import { userReducer } from './advanced/ngrx/basic/reducers/userReducer';
 import { useEffectReducer } from './advanced/ngrx/effects/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { userEffect } from './advanced/ngrx/effects/user.effects';
+import { reducer } from './advanced/ngrx/demo/reducers/demo.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { userEffect } from './advanced/ngrx/effects/user.effects';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot({user:userReducer ,users: useEffectReducer}, {}),
+    StoreModule.forRoot({user:userReducer ,users: useEffectReducer, demoStore: reducer}, {}),
     EffectsModule.forRoot([userEffect])
   ],
   providers: [],

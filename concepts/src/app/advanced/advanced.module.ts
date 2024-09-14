@@ -14,7 +14,7 @@ import { SubjectsComponent } from './rxjs/subjects/subjects.component';
 import { DynamicformsComponent } from './forms/dynamic-forms/dynamicforms.component';
 import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.component';
 
-import { ChangeDetectionComponent } from './change-detection/change-detection.component';
+import { ChangeDetectionComponent } from './change-detectionC/change-detection.component';
 
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthComponent } from './auth/auth.component';

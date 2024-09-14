@@ -22,7 +22,6 @@ export class FormComponent {
     input.value = "";
   }
   editMobile(input: any) {
-
     this.store.dispatch(updateMobile({ mobile: +input.value }))
     input.value = ""
   }

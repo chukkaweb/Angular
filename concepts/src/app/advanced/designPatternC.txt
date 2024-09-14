@@ -1,0 +1,130 @@
+Here are some Angular Design Patterns explained with simple points and examples:
+
+---
+
+ 1. Singleton Pattern
+- Definition: A design pattern where only one instance of a class exists throughout the app.
+- Angular Example: Angular services are typically implemented as singletons. When you declare a service in the `providers` array of an `NgModule`, Angular creates one instance of that service and shares it across components.
+  
+  Example:
+  - A `UserService` can be a singleton service that manages user data and authentication throughout the application.
+  
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserService {
+    private user = { name: 'John' };
+
+    getUser() {
+      return this.user;
+    }
+  }
+  
+  The `UserService` here will have one instance shared across the app.
+
+---
+
+ 2. Observer Pattern
+- Definition: A pattern where an object (subject) maintains a list of observers and notifies them of state changes.
+- Angular Example: This pattern is implemented using RxJS Observables in Angular. Components subscribe to observables to react to data changes.
+
+  Example:
+  - A component subscribing to a data stream from a service that provides real-time data updates.
+  
+  this.dataService.getData().subscribe(data => {
+    this.data = data;
+  });
+  
+
+  Here, the component observes changes in data, and when the data changes, the component gets updated automatically.
+
+---
+
+ 3. Dependency Injection (DI) Pattern
+- Definition: A design pattern where objects are provided with their dependencies, rather than creating them internally.
+- Angular Example: Angular uses DI to inject services into components. This keeps the code loosely coupled and easier to test.
+
+  Example:
+  - A component needs a `LoggerService` to log messages, and Angular injects it through the constructor.
+  
+  @Component({ ... })
+  export class MyComponent {
+    constructor(private logger: LoggerService) {}
+
+    logMessage() {
+      this.logger.log('Message from MyComponent');
+    }
+  }
+  
+
+  The LoggerService is injected, so the component doesn’t need to instantiate it, promoting separation of concerns.
+
+---
+
+ 4. Factory Pattern
+- Definition: A design pattern where objects are created without exposing the creation logic to the client, and the client refers to the new object through a common interface.
+- Angular Example: Factories are often used to create services in Angular. The `FactoryProvider` in Angular is an example of this pattern.
+
+  Example:
+  - Creating a factory for a service based on some condition.
+  
+  export function loggerFactory(environment: any) {
+    return environment.production ? new ProductionLogger() : new DevelopmentLogger();
+  }
+
+  @NgModule({
+    providers: [
+      { provide: LoggerService, useFactory: loggerFactory, deps: [Environment] }
+    ]
+  })
+  export class AppModule {}
+  
+
+  Here, `loggerFactory` decides which type of `LoggerService` to create based on the environment.
+
+---
+
+ 5. Strategy Pattern
+- Definition: This pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+- Angular Example: You can implement different strategies for performing operations and switch between them dynamically.
+
+  Example:
+  - Implementing different sorting algorithms in a service, and the component chooses which one to use.
+  
+  export class SortService {
+    sort(strategy: (a, b) => number, array: any[]) {
+      return array.sort(strategy);
+    }
+  }
+  
+
+---
+
+ 6. Facade Pattern
+- Definition: A design pattern that provides a simplified interface to a complex subsystem.
+- Angular Example: Angular’s services often act as facades to interact with complex systems, like interacting with a backend API.
+
+  Example:
+  - A `DataService` acts as a facade to handle all API interactions, so components don’t have to deal with the complexity of HTTP requests.
+  
+  @Injectable({ providedIn: 'root' })
+  export class DataService {
+    constructor(private http: HttpClient) {}
+
+    getData() {
+      return this.http.get('api/data');
+    }
+  }
+  
+
+---
+
+ Summary:
+- Singleton: One instance of a service (e.g., `UserService` shared across the app).
+- Observer: Components listen to observables (e.g., real-time data updates).
+- Dependency Injection (DI): Angular injects services (e.g., `LoggerService` injected into a component).
+- Factory: A factory function decides which service to create (e.g., production vs. development logger).
+- Strategy: Different strategies for the same task (e.g., sorting algorithms).
+- Facade: A service provides a simplified interface to complex systems (e.g., API interaction).
+
+These design patterns help make Angular applications more maintainable, scalable, and testable.

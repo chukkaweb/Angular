@@ -31,7 +31,7 @@ export class GoldMembership implements Membership {
   type: 'Gold' = 'Gold';
 }
 
-// open & close priciple
+// open & close principle
 class GoldMembershipDiscountCalculator extends DiscountCalculator {
   override calculateDiscount(member: Membership, purchaseAmount: number): number {
     if (member.type === 'Gold') {
