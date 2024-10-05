@@ -1,4 +1,7 @@
 Optimize the Performance of a Web Application ?
+unsubscribe to avoid the data leaks 
+trackBy that will update the ui when the latest changes 
+change detection
 
 1. Implement server-side rendering (SSR) – This can significantly improve the initial load time of your pages.
 https://lnkd.in/d6CGP8F5
@@ -26,3 +29,6 @@ https://lnkd.in/dRPn2DYh
 
 9. Prioritize asynchronous operations – Minimize blocking JavaScript and keep operations asynchronous to prevent delays.
 https://lnkd.in/dcjKnrn2
+
+
+

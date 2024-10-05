@@ -4,9 +4,7 @@ Angular Elements allow you to convert Angular components into custom elements (a
 
  Key Points:
 1. Web Components: Angular Elements are built on web components, which are part of browser standards. Web components can be used in any web framework or no framework at all.
-
 2. Reusability: With Angular Elements, you can create reusable UI components that can work outside of Angular environments.
-
 3. Cross-Framework: You can use Angular-built components in applications that don’t use Angular (like a React or plain HTML app).
 
 ---

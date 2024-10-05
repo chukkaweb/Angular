@@ -1,0 +1,11 @@
+<!-- @If and @Else Directives
+Angular 18 introduces the new @if and @else directives for cleaner conditional rendering (as an experimental feature). -->
+
+<ng-container @if="isLoggedIn; else loggedOut">
+    <p>Welcome, user!</p>
+  </ng-container>
+  
+  <ng-template #loggedOut>
+    <p>Please log in.</p>
+  </ng-template>
+  

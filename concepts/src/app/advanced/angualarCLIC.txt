@@ -1,61 +1,62 @@
-### How the Angular CLI Works: Simple Points
+How the Angular CLI Works: Simple Points
 
-1. **Command-Line Interface**:
-   - The **Angular CLI** is a tool you use in the terminal or command line to generate and manage Angular projects, components, services, and more.
+1. Command-Line Interface:
+   - The Angular CLI is a tool you use in the terminal or command line to generate and manage Angular projects, components, services, and more.
 
-2. **Project Creation**:
+2. Project Creation:
+
    - You can create a new Angular project with a single command:
-     ```bash
+     bash
      ng new my-app
-     ```
+     
    - This sets up a project with all necessary files, configurations, and dependencies (like TypeScript, Angular libraries).
 
-3. **File Generation**:
+3. File Generation:
    - The CLI helps you generate components, services, modules, and more with simple commands:
-     ```bash
+     bash
      ng generate component my-component
      ng generate service my-service
-     ```
+     
 
-4. **Development Server**:
+4. Development Server:
    - You can easily run a local development server to preview your app:
-     ```bash
+     bash
      ng serve
-     ```
+     
    - This command compiles the app, starts a server, and watches for changes in your code, automatically reloading the page when updates are made.
 
-5. **Build Process**:
-   - The CLI manages the **build** process for you:
-     ```bash
+5. Build Process:
+   - The CLI manages the build process for you:
+     bash
      ng build
-     ```
+     
    - It compiles your code into optimized, production-ready files, handling TypeScript compilation, bundling, and minification.
 
-6. **Testing**:
-   - Angular CLI helps you run tests using **Karma** (for unit tests) and **Protractor** (for end-to-end tests):
-     ```bash
+6. Testing:
+   - Angular CLI helps you run tests using Karma (for unit tests) and Protractor (for end-to-end tests):
+     bash
      ng test   // Runs unit tests
      ng e2e    // Runs end-to-end tests
-     ```
+     
 
-7. **Linting**:
+7. Linting:
    - Ensures your code follows best practices and conventions:
-     ```bash
+     bash
      ng lint
-     ```
+     
 
-8. **Schematics**:
-   - The CLI uses **schematics** to automate code generation and modifications (e.g., upgrading Angular versions).
+8. Schematics:
+   - The CLI uses schematics to automate code generation and modifications (e.g., upgrading Angular versions).
 
-9. **Configuration**:
+9. Configuration:
    - You can manage environment settings, build configurations, and project settings through files like `angular.json` and `environment.ts`.
 
 ---
 
-### **Summary**:
-- **ng new**: Creates a new Angular project.
-- **ng generate**: Creates components, services, etc.
-- **ng serve**: Starts a development server.
-- **ng build**: Compiles the app for production.
-- **ng test**: Runs unit and e2e tests.
-- **ng lint**: Ensures code quality.
+Summary:
+- ng new: Creates a new Angular project.
+- ng generate: Creates components, services, etc.
+- ng serve: Starts a development server.
+- ng build: Compiles the app for production.
+- ng test: Runs unit and e2e tests.
+- ng lint: Ensures code quality.

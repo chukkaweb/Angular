@@ -1,14 +1,18 @@
   Zones in Angular
- Zones in Angular are an advanced concept used to handle asynchronous operations and change detection seamlessly. The concept of zones helps Angular track and manage asynchronous tasks (like `setTimeout`, `HTTP requests`, or `event listeners`) and ensures that Angular knows when to update the UI. 
+ Zones in Angular are an advanced concept used to handle asynchronous operations and change detection seamlessly. 
+ The concept of zones helps Angular track and manage asynchronous tasks (like `setTimeout`, `HTTP requests`, or `event listeners`) and ensures that Angular knows when to update the UI. 
 
   What is a Zone?
- A Zone is essentially an execution context that keeps track of all asynchronous tasks. Angular leverages a library called zone.js to patch browser APIs so that it can know when an asynchronous task starts and finishes.
+ A Zone is essentially an execution context that keeps track of all asynchronous tasks. 
+ Angular leverages a library called zone.js to patch browser APIs so that it can know when an asynchronous task starts and finishes.
 
   Why are Zones Important in Angular?
- Zones help Angular to automatically trigger change detection after asynchronous operations, which makes sure the UI is updated with the latest data without needing to manually tell Angular when to re-render.
+ Zones help Angular to automatically trigger change detection after asynchronous operations, 
+ which makes sure the UI is updated with the latest data without needing to manually tell Angular when to re-render.
 
   How Zones Work:
- When an asynchronous task is executed within a Zone, Angular is aware of when that task starts and completes. This allows Angular to run change detection automatically after the task finishes, ensuring that the UI reflects any changes in the data.
+ When an asynchronous task is executed within a Zone, Angular is aware of when that task starts and completes. 
+ This allows Angular to run change detection automatically after the task finishes, ensuring that the UI reflects any changes in the data.
 
   Example: Without Zones (Manual Change Detection)
  Without zones, if Angular doesn't know about the completion of an asynchronous task, you would need to manually trigger change detection. For example:
@@ -99,7 +103,6 @@
  
  it('should fetch data asynchronously', fakeAsync(() => {
    let data: string;
-  
    setTimeout(() => {
      data = 'Async Data';
    }, 1000);
@@ -111,5 +114,7 @@
 
  In this example, fakeAsync and tick allow us to simulate the passage of time for the asynchronous operation, and zone.js ensures that change detection runs correctly after the asynchronous task completes.
 
-  Conclusion:
- Zones are a key part of Angular’s mechanism for managing asynchronous operations. Thanks to zone.js, Angular automatically tracks asynchronous operations, which keeps the UI in sync with the model without requiring manual intervention. This allows Angular developers to focus more on building features rather than managing when and how the UI should update.
+Conclusion:
+Zones are a key part of Angular’s mechanism for managing asynchronous operations. 
+Thanks to zone.js, Angular automatically tracks asynchronous operations, which keeps the UI in sync with the model without requiring manual intervention.
+This allows Angular developers to focus more on building features rather than managing when and how the UI should update.

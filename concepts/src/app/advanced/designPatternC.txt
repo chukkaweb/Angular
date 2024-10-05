@@ -1,6 +1,16 @@
-Here are some Angular Design Patterns explained with simple points and examples:
+Angular Design Patterns:
 
----
+Summary:
+- Singleton: One instance of a service (e.g., `UserService` shared across the app).
+- Observer: Components listen to observables (e.g., real-time data updates).
+- Dependency Injection (DI): Angular injects services (e.g., `LoggerService` injected into a component).
+- Factory: A factory function decides which service to create (e.g., production vs. development logger).
+- Strategy: Different strategies for the same task (e.g., sorting algorithms).
+- Facade: A service provides a simplified interface to complex systems (e.g., API interaction).
+
+These design patterns help make Angular applications more maintainable, scalable, and testable.
+
+
 
  1. Singleton Pattern
 - Definition: A design pattern where only one instance of a class exists throughout the app.
@@ -118,13 +128,3 @@ Here are some Angular Design Patterns explained with simple points and examples:
   
 
 ---
-
- Summary:
-- Singleton: One instance of a service (e.g., `UserService` shared across the app).
-- Observer: Components listen to observables (e.g., real-time data updates).
-- Dependency Injection (DI): Angular injects services (e.g., `LoggerService` injected into a component).
-- Factory: A factory function decides which service to create (e.g., production vs. development logger).
-- Strategy: Different strategies for the same task (e.g., sorting algorithms).
-- Facade: A service provides a simplified interface to complex systems (e.g., API interaction).
-
-These design patterns help make Angular applications more maintainable, scalable, and testable.

@@ -14,6 +14,17 @@ React vs Angular: A Comprehensive Comparison
 
 ---
 
+9. Testing
+
+- React:  
+  - Requires third-party tools like Jest or Enzyme for testing.
+  - Testing can be challenging due to the need for multiple libraries.
+
+- Angular:  
+  - Has built-in testing tools like Karma and Jasmine.
+  - Supports end-to-end testing and unit testing out of the box.
+
+
 2. Learning Curve
 
 - React:  
@@ -97,16 +108,6 @@ React vs Angular: A Comprehensive Comparison
   - Used by companies like Google, Microsoft, PayPal.
 
 ---
-
-9. Testing
-
-- React:  
-  - Requires third-party tools like Jest or Enzyme for testing.
-  - Testing can be challenging due to the need for multiple libraries.
-
-- Angular:  
-  - Has built-in testing tools like Karma and Jasmine.
-  - Supports end-to-end testing and unit testing out of the box.
 
 ---
 
