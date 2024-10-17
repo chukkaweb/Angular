@@ -20,6 +20,11 @@ Ideal for larger applications where optimizing change detection is crucial. Comp
      changeDetection: ChangeDetectionStrategy.OnPush,
    })
 
+# ChangeDetectionStrategy.Default: 
+Angular checks the entire component tree for changes during each change detection cycle. Even if the inputs are not changed, it will still check all components in the hierarchy.
+
+# ChangeDetectionStrategy.OnPush: 
+Angular will only run change detection for this component if its inputs change or if an event inside the component occurs. This improves performance by skipping unnecessary checks.
 
 # Change Detection Methods
 
