@@ -1,3 +1,8 @@
+// ngOnInit: Called once after the component is initialized. Typically used to fetch data or initialize state.
+// ngOnChanges: Called when input properties change. Useful for reacting to input changes.
+// ngOnDestroy: Called when the component is destroyed. Typically used for cleanup, such as unsubscribing from observables.
+// ngAfterViewInit: Called after the component's view (and child views) has been initialized.
+
 import {
   Component,
   OnInit,
