@@ -1,3 +1,5 @@
+<!-- 
+
 ### Angular Route Guards  
 Guards in Angular are used to control navigation based on certain conditions. They are part of the Angular Router module and can help manage access to routes.
 
@@ -8,7 +10,6 @@ Guards in Angular are used to control navigation based on certain conditions. Th
 4. `Resolve`: Pre-fetches data before the route is activated.
 5. `CanLoad`: Controls if a module can be loaded lazily.
 
----
 
 ### 1. CanActivate Guard
 
@@ -16,7 +17,6 @@ This guard determines whether a route can be activated based on some condition (
 
 Example:
 
-```typescript
 // auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
@@ -37,29 +37,25 @@ export class AuthGuard implements CanActivate {
     }
   }
 }
-```
+
 
 Route Setup:
-
-```typescript
 // app-routing.module.ts
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
 ];
-```
+
 
 In this case, the `AuthGuard` checks if the user is logged in. If not, it redirects to the login page.
 
----
+
 
 ### 2. CanActivateChild Guard
 
 This guard is similar to `CanActivate` but applies to child routes. It checks if a user can access specific child routes under a parent route.
 
 Example:
-
-```typescript
 // admin.guard.ts
 @Injectable({
   providedIn: 'root',
@@ -70,11 +66,10 @@ export class AdminGuard implements CanActivateChild {
     return isAdmin;
   }
 }
-```
+
 
 Route Setup:
 
-```typescript
 const routes: Routes = [
   {
     path: 'admin',
@@ -86,11 +81,9 @@ const routes: Routes = [
     ],
   },
 ];
-```
+
 
 In this example, only users with admin privileges can access the child routes of `admin`.
-
----
 
 ### 3. CanDeactivate Guard
 
@@ -98,7 +91,7 @@ This guard controls whether a user can leave a route. It's useful when you want 
 
 Example:
 
-```typescript
+
 // unsaved-changes.guard.ts
 import { CanDeactivate } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -117,30 +110,30 @@ export class UnsavedChangesGuard implements CanDeactivate<CanComponentDeactivate
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }
-```
+
 
 Component Implementation:
 
-```typescript
+
 // form.component.ts
 export class FormComponent implements CanComponentDeactivate {
   canDeactivate(): boolean {
     return confirm('You have unsaved changes. Do you really want to leave?');
   }
 }
-```
+
 
 Route Setup:
 
-```typescript
+
 const routes: Routes = [
   { path: 'form', component: FormComponent, canDeactivate: [UnsavedChangesGuard] },
 ];
-```
+
 
 In this example, if the user tries to leave the `FormComponent` without saving changes, they are prompted with a confirmation dialog.
 
----
+
 
 ### 4. Resolve Guard
 
@@ -148,7 +141,7 @@ This guard pre-fetches data before the route is activated, ensuring the componen
 
 Example:
 
-```typescript
+
 // data-resolver.service.ts
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
@@ -162,11 +155,11 @@ export class DataResolverService implements Resolve<any> {
     return of({ message: 'Hello from Resolver' });  // Fetch or simulate some data
   }
 }
-```
+
 
 Component:
 
-```typescript
+
 // home.component.ts
 export class HomeComponent {
   constructor(private route: ActivatedRoute) {
@@ -175,11 +168,11 @@ export class HomeComponent {
     });
   }
 }
-```
+
 
 Route Setup:
 
-```typescript
+
 const routes: Routes = [
   {
     path: 'home',
@@ -187,11 +180,11 @@ const routes: Routes = [
     resolve: { message: DataResolverService },  // Use the resolver
   },
 ];
-```
+
 
 In this example, data is pre-fetched before navigating to the `HomeComponent`.
 
----
+
 
 ### 5. CanLoad Guard
 
@@ -199,7 +192,7 @@ This guard is used to prevent lazy-loaded modules from being loaded until certai
 
 Example:
 
-```typescript
+
 // auth.guard.ts
 @Injectable({
   providedIn: 'root',
@@ -210,11 +203,9 @@ export class AuthGuard implements CanLoad {
     return isAuthorized;
   }
 }
-```
+
 
 Route Setup:
-
-```typescript
 const routes: Routes = [
   {
     path: 'admin',
@@ -222,11 +213,8 @@ const routes: Routes = [
     canLoad: [AuthGuard],  // Prevent loading unless authorized
   },
 ];
-```
 
 In this case, the `AuthGuard` ensures that the `admin` module is only loaded if the user is authorized.
-
----
 
 ### Summary of Guards:
 1. CanActivate: Controls access to routes (e.g., checking if the user is logged in).
@@ -235,4 +223,6 @@ In this case, the `AuthGuard` ensures that the `admin` module is only loaded if 
 4. Resolve: Pre-fetches data before navigating to a route.
 5. CanLoad: Controls if a lazy-loaded module can be loaded. 
 
-Guards are useful for improving application security, user experience, and flow control by ensuring that routes are accessed under the right conditions.
+Guards are useful for improving application security, user experience, and flow control by ensuring that routes are accessed under the right conditions. 
+
+-->

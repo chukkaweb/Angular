@@ -24,12 +24,13 @@ import {
   selector: 'app-operators',
   template: ` <p>operators works!</p> `,
 })
+
 export class OperatorsComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-
+    
     //------start -from and of operator ----------
     // converting an object to observable
     //  converting it to an observable allows you to handle state changes reactively
@@ -69,7 +70,7 @@ export class OperatorsComponent implements OnInit {
       .subscribe((data) => console.log('mapped object', data));
 
     // tap does not make changes to actual stream when ever we dont want to change the data..
-    // we can log the data..or may be want to send some signal to some servce and we dont want to maipulate the data..
+    // we can log the data..or may be want to send some signal to some service and we don't want to manipulate the data..
     const source2 = of('ganesh');
     source2
       .pipe(

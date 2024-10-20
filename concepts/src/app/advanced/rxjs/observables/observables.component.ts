@@ -1,6 +1,6 @@
 // 	Observable is a class . is a data source that can emit multiple values over time
 //  if we want to use we have to create that time of object / instance
-// 	Ex : let o = new obserbale()
+// 	Ex : let o = new observable()
 
 // 	Observables (to easy do asynchronous calls)
 // 	Data vachina pratisari notify cheyali anukunte at that case also we can use observables
@@ -9,7 +9,7 @@
 // 	To create object of this type takes a call back function
 // 	Let o = new observable (function(){})
 // 	This object emits some data continuously or error with the help of next(), error() methods
-// 	Ex : let myobs =new Observable(function(observer){  observable is constructor function
+// 	Ex : let myobs = new Observable(function(observer){  observable is constructor function
 //  observer - data emit ..
 
 // observer.next(1);  next is used for passing the data to whom subscribe

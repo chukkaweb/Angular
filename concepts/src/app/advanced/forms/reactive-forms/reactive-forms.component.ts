@@ -7,7 +7,8 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
   styleUrls: ['./reactive-forms.component.scss']
 })
 export class ReactiveFormsComponent implements OnInit {
-
+  constructor(private fb: FormBuilder) { }
+  
   registerForm:any = this.fb.group({
     name: ['', Validators.required],
     mobile: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.maxLength(10)]],
@@ -33,7 +34,7 @@ export class ReactiveFormsComponent implements OnInit {
   ];
   
 
-constructor(private fb: FormBuilder) { }
+
 
 public ngOnInit(): void { }
 

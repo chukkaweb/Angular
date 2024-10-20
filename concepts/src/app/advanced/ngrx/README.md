@@ -1,10 +1,12 @@
+<!--
 # NgRx (library based on redux library)
 	NgRx is a state management library for Angular applications, based on Redux principles. 
 	It provides a predictable state container, enabling the management of application state in a consistent and centralized way. 
 	NgRx helps manage complex state interactions, simplifies debugging, and promotes scalable architecture.
 
 # core components of NgRx
-	Answer: The core components of NgRx include:
+	Answer: The core components of
+ NgRx include:
 	Store: Holds the application state.
 	Actions: Describe state changes.
 	Reducers: Pure functions that handle state transitions based on actions.
@@ -41,7 +43,6 @@ A mechanism that listens for dispatched actions in an observable stream, process
 	Selector ane conpect use chesi store lo unna data ni mana component lo use chesukuntam
 Reducer(state, action) {  state - previous state , action  dispatch function dhwara pass chese 
 }
-
 
 #  Implementation 
 	ng add @ngrx/store - ng add will help anything configure in app module it will do.
@@ -87,6 +88,7 @@ Separation of Concerns:
 Action-Based: Changes to the state are performed through dispatched actions, leading to a more structured and traceable way to handle state changes.
 Debugging and Tooling:
 
+
 ### DevTools: 
 NgRx offers powerful debugging tools such as Redux DevTools, which allow developers to time-travel, inspect actions, and view state changes.
 Logging: NgRx allows you to log every action dispatched and the state before and after the action, making it easier to track down bugs.
@@ -108,3 +110,5 @@ Uniform Approach: NgRx enforces a consistent approach to managing state across t
 ### Summary:
 Services: Suitable for simple applications with straightforward data sharing needs.
 NgRx: Ideal for complex applications requiring predictable state management, better debugging tools, testability, and scalability.
+
+ -->

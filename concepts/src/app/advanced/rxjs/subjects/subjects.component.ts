@@ -18,7 +18,7 @@
 // Subjects enable multicasting, meaning that multiple subscribers can listen to the same stream of data and receive the same values
 // Service file subject create chesi component share chestam 
 
-// Why service means for creating subject in service file we have only sinlge accurance / object will create then we can use the subject data where ever we want .
+// Why service means for creating subject in service file we have only single accurance / object will create then we can use the subject data where ever we want .
 // Data different places use chesyli  
 
 import { Component } from '@angular/core';
