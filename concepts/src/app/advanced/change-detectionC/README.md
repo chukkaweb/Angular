@@ -1,8 +1,8 @@
+<!-- 
 Change detection is a mechanism in Angular that determines if and how the view should be updated based on changes in the application state. 
 Angular applications automatically perform change detection to keep the UI in sync with the underlying data.
 
 # Change Detection Strategies:
-
 # Default
 Angular checks all components in the application tree during every change detection cycle, regardless of whether their input properties have changed.
 ## Use Case: 
@@ -12,7 +12,8 @@ Suitable for small to mediumsized applications or when the overhead of checking 
 The OnPush change detection strategy checks components only if their input properties or event handlers change. It optimizes performance by reducing the number of checked components.
 
 ## Use Case: 
-Ideal for larger applications where optimizing change detection is crucial. Components using this strategy must have immutable input properties.
+Ideal for larger applications where optimizing change detection is crucial. 
+Components using this strategy must have immutable input properties.
 ### example
  @Component({
      selector: 'appexample',
@@ -37,4 +38,6 @@ The detach() method detaches the change detector from the component, preventing 
 reattach() reattaches the change detector.
 
 ## Manually Triggering Change Detection
-You can also manually trigger change detection using the detectChanges() method of the ChangeDetectorRef:
+You can also manually trigger change detection using the detectChanges() method of the ChangeDetectorRef: 
+
+-->

@@ -1,0 +1,35 @@
+<div class="row mt-4">
+    <div class="col-2">
+        User Name:
+    </div>
+    <div class="col-4">
+        <input type="text" class="form-control" #name>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="updateName(name)">Update</button>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-2">
+        Email:
+    </div>
+    <div class="col-4">
+        <input type="text" class="form-control" #email>
+    </div>
+<div class="col-2">
+        <button class="btn btn-primary" (click)="updateEmail(email)">Update</button>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-2">
+        Mobile:
+    </div>
+    <div class="col-4">
+        <input type="number" class="form-control" #mobile>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="updateMobile(mobile)">Update</button>
+    </div>
+</div>

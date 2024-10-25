@@ -12,12 +12,9 @@ Guards in Angular are used to control navigation based on certain conditions. Th
 
 
 ### 1. CanActivate Guard
-
 This guard determines whether a route can be activated based on some condition (e.g., if the user is logged in).
 
 Example:
-
-// auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
@@ -139,9 +136,11 @@ In this example, if the user tries to leave the `FormComponent` without saving c
 
 This guard pre-fetches data before the route is activated, ensuring the component has all the necessary data before it loads.
 
+A Resolve Guard in Angular is a type of route guard that pre-fetches data before a route is activated. It ensures that required data is available before the user navigates to the route, preventing the component from loading until the data is ready.
+
+It is particularly useful for scenarios where a component needs data from a service (e.g., API calls) before rendering the view. The data is fetched while navigating, and the component only loads once the data has been successfully retrieved.
+
 Example:
-
-
 // data-resolver.service.ts
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
@@ -158,8 +157,6 @@ export class DataResolverService implements Resolve<any> {
 
 
 Component:
-
-
 // home.component.ts
 export class HomeComponent {
   constructor(private route: ActivatedRoute) {
@@ -184,6 +181,12 @@ const routes: Routes = [
 
 In this example, data is pre-fetched before navigating to the `HomeComponent`.
 
+Resolve Guard is used to pre-fetch data for a route before navigating to a component.
+Steps:
+Create a resolver service that fetches data.
+Attach the resolver to the route using the resolve property.
+Access the resolved data in the component via the ActivatedRoute service.
+This ensures that your component has all the necessary data before rendering, providing a smoother user experience.
 
 
 ### 5. CanLoad Guard

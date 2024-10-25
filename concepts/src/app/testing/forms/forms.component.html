@@ -1,0 +1,59 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="customerName">Customer Name</label>
+      <input type="text" class="form-control" id="customerName" formControlName="customerName">
+      <div *ngIf="customerForm.get('customerName').invalid && customerForm.get('customerName').touched" class="invalid-feedback">
+        Customer Name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="customerAadhar">Customer Aadhar</label>
+      <input type="text" class="form-control" id="customerAadhar" formControlName="customerAadhar">
+      <div *ngIf="customerForm.get('customerAadhar').invalid && customerForm.get('customerAadhar').touched" class="invalid-feedback">
+        Customer Aadhar is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea class="form-control" id="address" formControlName="address"></textarea>
+      <div *ngIf="customerForm.get('address').invalid && customerForm.get('address').touched" class="invalid-feedback">
+        Address is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+      <div *ngIf="customerForm.get('phoneNumber').invalid && customerForm.get('phoneNumber').touched" class="invalid-feedback">
+        Phone Number is required and should contain only numbers.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="customerMail">Customer Mail</label>
+      <input type="email" class="form-control" id="customerMail" formControlName="customerMail">
+      <div *ngIf="customerForm.get('customerMail').invalid && customerForm.get('customerMail').touched" class="invalid-feedback">
+        Customer Mail is required and should be a valid email.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="state">State</label>
+      <select class="form-control" id="state" formControlName="state">
+        <option value="" disabled>Select State</option>
+        <!-- Add options dynamically here -->
+      </select>
+      <div *ngIf="customerForm.get('state').invalid && customerForm.get('state').touched" class="invalid-feedback">
+        State is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+  <div class="col-md-6"></div>
+  </div>
+</div>
+  

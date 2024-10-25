@@ -37,7 +37,7 @@ A mechanism that listens for dispatched actions in an observable stream, process
 # Dispatch 
 	Store lo unna data ni reducer function use chesi change cheyali 
 	Dispatch ane function dhvara reducer ni call avuthundhi 
-	Dispatch ane funcation lo action item edhi avidhanga modify avvalanedhi chepthundi 
+	Dispatch ane function lo action item edhi avidhanga modify avvalanedhi chepthundi 
 	Dispatch ane function manam call cheste reducer ane function automatic ga call chestundhi 
 	Component lo manam dispatch ane function call chestam 
 	Selector ane conpect use chesi store lo unna data ni mana component lo use chesukuntam
@@ -99,7 +99,8 @@ Mocking: With NgRx, you can easily mock the store and actions in your tests.
 Scalability:
 
 ### Large Applications: 
-For large and complex applications, NgRx provides a more scalable solution than services. It makes managing multiple states and complex interactions more manageable.
+For large and complex applications, NgRx provides a more scalable solution than services. 
+It makes managing multiple states and complex interactions more manageable.
 
 ###  Middleware: 
 NgRx allows you to add middleware (effects) to handle side effects like asynchronous operations, which can keep your components clean and focused on presentation logic.
