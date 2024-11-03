@@ -1,8 +1,14 @@
 Angular Standalone Components - Simple Explanation
 
+// Summary
+
+// - Standalone Components allow Angular components to be independent of modules, simplifying component structure.
+// - Direct Imports: They can directly import other standalone components, Angular modules, directives, and pipes.
+// - Multiple Use Cases: Standalone components can handle dependency injection, module imports, nesting, and can be bootstrapped directly.
+
+
 // In Angular, standalone components are components that do not require an Angular module (`NgModule`) to work. They simplify the structure of Angular applications by allowing components, pipes, and directives to be self-contained and used directly without needing to declare them in a module.
 
-// ---
 
 // Why Use Standalone Components?
 
@@ -10,7 +16,7 @@ Angular Standalone Components - Simple Explanation
 // - Faster Bootstrapping: Standalone components streamline the application structure, which can improve load time in large apps.
 // - Direct Imports: Standalone components can import Angular dependencies and other standalone components directly.
 
-// ---
+
 
 // How to Create a Standalone Component
 
@@ -38,11 +44,16 @@ Angular Standalone Components - Simple Explanation
 // 3. Using the Standalone Component:
 //    - Standalone components can be directly imported and used in other components or bootstrapped directly in the application without needing an `NgModule`.
 
-// ---
+
 
 // Examples of Standalone Components - All Cases Covered
+// #Case 1: Standalone Component with Dependency Injection
 
 // #Case 1: Standalone Component with Dependency Injection
+// #Case 2: Standalone Component Importing Angular Modules
+// #Case 3: Standalone Component Using Other Standalone Components
+// #Case 4: Standalone Component with Directives and Pipes
+// #Case 5: Bootstrapping Standalone Component Directly
 
 // Standalone components can inject services just like regular components.
 
@@ -61,7 +72,7 @@ Angular Standalone Components - Simple Explanation
 // }
 
 
-// ---
+
 
 // #Case 2: Standalone Component Importing Angular Modules
 
@@ -86,7 +97,7 @@ Angular Standalone Components - Simple Explanation
 // }
 
 
-// ---
+
 
 // #Case 3: Standalone Component Using Other Standalone Components
 
@@ -107,7 +118,7 @@ Angular Standalone Components - Simple Explanation
 // export class ParentComponent {}
 
 
-// ---
+
 
 // #Case 4: Standalone Component with Directives and Pipes
 
@@ -130,7 +141,6 @@ Angular Standalone Components - Simple Explanation
 // }
 
 
-// ---
 
 // #Case 5: Bootstrapping Standalone Component Directly
 
@@ -155,14 +165,5 @@ Angular Standalone Components - Simple Explanation
 //   standalone: true
 // })
 // export class AppComponent {}
-
-
-// ---
-
-// Summary
-
-// - Standalone Components allow Angular components to be independent of modules, simplifying component structure.
-// - Direct Imports: They can directly import other standalone components, Angular modules, directives, and pipes.
-// - Multiple Use Cases: Standalone components can handle dependency injection, module imports, nesting, and can be bootstrapped directly.
 
 // Using standalone components in Angular reduces the need for `NgModule` declarations, making your app structure more straightforward and flexible.
