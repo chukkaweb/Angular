@@ -101,3 +101,53 @@
 //     this.cdr.detectChanges();
 //   }
 // }
+
+
+
+
+
+Zoneless Angular
+
+Zoneless Angular refers to running Angular applications without relying on Zone.js, which is traditionally used for change detection in Angular. Zoneless functionality allows developers to take full control over change detection, improving performance in scenarios where fine-grained updates are needed.
+
+When was it introduced?
+Zoneless mode support was introduced as an experimental feature in Angular 16.
+
+Why Zoneless?
+- Better Performance: Avoids the overhead of Zone.js patching APIs like `setTimeout` or `addEventListener`.
+- Control over Change Detection: Developers manually manage change detection, optimizing performance for specific cases.
+- Modern Framework Alignment: Aligns Angular with other frameworks that don't rely on zones.
+
+How to Use Zoneless Mode?
+1. Set `zone: false` in `bootstrapApplication` or in `NgModule` bootstrap:
+   
+   import { bootstrapApplication } from '@angular/platform-browser';
+   import { AppComponent } from './app.component';
+
+   bootstrapApplication(AppComponent, {
+     zone: 'noop'  // Zoneless mode
+   });
+   
+
+2. Use ChangeDetectorRef or Signal-based reactivity for manual change detection:
+   
+   import { ChangeDetectorRef } from '@angular/core';
+
+   constructor(private cdr: ChangeDetectorRef) { }
+
+   updateView() {
+     // Manually trigger change detection
+     this.cdr.detectChanges();
+   }
+   
+Benefits of Zoneless Angular:
+- Reduces global patching overhead.
+- Improves performance in high-frequency data updates like animations or real-time applications.
+- More suitable for applications using Signals or RxJS for reactivity.
+
+When to Use Zoneless Mode?
+- Large-scale apps requiring fine-grained performance tuning.
+- Applications with real-time updates or high UI update frequency.
+- Projects aiming for modern, lean architectures.
+
+Zoneless Angular empowers developers to create more performant and predictable applications by giving control over change detection.
