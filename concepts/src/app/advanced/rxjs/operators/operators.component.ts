@@ -21,6 +21,7 @@ import {
   debounceTime,
   switchMap,
   concat,
+  timer,
 } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { concat } from 'rxjs';
@@ -176,8 +177,10 @@ export class OperatorsComponent implements OnInit {
 
 // `combineLatest()` is a function ( previously it operator(deprecated)) that combines multiple observables and emits the latest values from each observable whenever any of them emits a new value.
 //  It waits for all observables to emit at least one value before emitting the first combined set of values.
-// if any one of observable give the error it also give the error. 
-// and if any one one observable pending it not executed.
+// if any Observable errors, combineLatest will error immediately as well, and all other Observables will be unsubscribed
+// if some input Observable does not emit any value and never completes,combineLatest will also never emit and never complete, since, again, it will wait for all streams to emit some value.
+// whenever any Observable emits, collecting an array of the most recent values from each Observable.
+// So if you pass n Observables to this operator, the returned Observable will always emit an array of n values, in an order corresponding to the order of the passed Observables (the value from the first Observable will be at index 0 of the array and so on).
 // Simple Steps to Use `combineLatest()`
 // 1. Import `combineLatest`: Import the function from `rxjs`.
 // 2. Provide Observables: Pass the observables you want to combine as arguments to `combineLatest`.
@@ -185,14 +188,20 @@ export class OperatorsComponent implements OnInit {
 
 // Example1
 testCombineLatest() {
-  const obs1$ = of(1, 2, 3);
+  const obs1$ = of(1, 2, 3).pipe(delay(1000));
   const obs2$ = of('1', '2', '3');
-  const combined$ = combineLatest([obs1$, obs2$]);
-  combined$.subscribe(([obs1, obs2])=>{
-    console.log(obs1, obs2)
-  })
+  const obs3$ = of('a', 'b', 'c','d','e','f');
+  const combined$ = combineLatest([obs1$, obs2$,obs3$]);
+  combined$.subscribe((values) => {
+    console.log(values);
+  });
 }
 // example2
+// const firstTimer = timer(0, 1000); // emit 0, 1, 2... after every second, starting from now
+//     const secondTimer = timer(500, 1000); // emit 0, 1, 2... after every second, starting 0,5s from now
+//     const combinedTimers = combineLatest([firstTimer, secondTimer]);
+//     combinedTimers.subscribe((value) => console.log(value));
+// Example 3
 // const names$ = of('Alice', 'Bob', 'Charlie').pipe(delay(1000)); // Emits names with a delay
 // const ages$ = of(25, 30, 35).pipe(delay(2000)); // Emits ages with a delay
 
@@ -222,19 +231,30 @@ testCombineLatest() {
 // This method is useful for scenarios where you need to work with the most recent values from multiple sources together, such as combining user input fields or synchronizing data streams.
 
 // `concat()` in RxJS
-// `concat()` is a function that concatenates multiple observables and emits values sequentially, one after the other. It waits for each observable to complete before moving on to the next.
+// `concat()` is a function that concatenates multiple observables and emits values sequentially, one after the other.
+// It waits for each observable to complete before moving on to the next.
+// You can pass either an array of Observables, or put them directly as arguments.
+// Passing an empty array will result in Observable that completes immediately.
+// concat will subscribe to first input Observable and emit all its values, without changing or affecting them in any way. When that Observable completes
 // Simple Points about `concat()`:
 // 1. Sequential Execution: It subscribes to the next observable only after the current one completes.
 // 2. Order Preservation: Emits all values from the first observable, then from the second, and so on, preserving the order of observables.
 // 3. Completion Requirement: Each observable must complete before moving on to the next.
 // 4. Use Case: Best when you need to execute observables in sequence, such as processing tasks that depend on the previous task's completion.
 
-const observable5$ = of('First').pipe(delay(1000));
-const observable6$ = of('Second').pipe(delay(2000));
-
-concat(observable5$, observable6$).subscribe(value => {
-  console.log(value); // Output: "First" then "Second"
-});
+testConcat() {
+  const obs1$ = of(1, 2, 3, 4, 5, 6, 7);
+  const obs2$ = new Observable((obs) => {
+    obs.next(1);
+    obs.next(1); // until here obs1$ will get output, because all observable will complete
+    obs.complete(); // once it is will execute all obs
+  });
+  const obs3$ = of('a', 'b', 'c','d','e','f');
+  const combined$ = concat(obs1$, obs2$,obs3$); // not using array 
+  combined$.subscribe((values) => {
+    console.log(values);
+  });
+}
 
 // `forkJoin()` in RxJS
 // `forkJoin()` is a function that combines multiple observables and emits a single array containing the last values from each observable once all observables complete.
@@ -246,12 +266,29 @@ concat(observable5$, observable6$).subscribe(value => {
 
 // Example:
 
-const observable3$ = of('One').pipe(delay(1000));
-const observable4$ = of('Two').pipe(delay(2000));
+testForkJoin() {
+  const observable = forkJoin({
+    foo: of(1, 2, 3, 4),
+    bar: Promise.resolve(8),
+    baz: timer(4000)
+  });
+  observable.subscribe({
+   next: value => console.log(value),
+   complete: () => console.log('This is how it ends!'),
+  });
 
-forkJoin([observable3$, observable4$]).subscribe(([result1, result2]) => {
-  console.log(result1, result2); // Output: "One Two"
-});
+  const obs1$ = of(1, 2, 3, 4, 5, 6, 7);
+  const obs2$ = new Observable((obs) => {
+    obs.next(1);
+    obs.next(1);
+    obs.complete();
+  });
+  const obs3$ = of('a', 'b', 'c', 'd', 'e', 'f');
+  const combinded$ = forkJoin([obs1$, obs2$, obs3$]);
+  combinded$.subscribe((values) => {
+    console.log(values);
+  });
+}
 
 // Difference between `concat()`, `combineLatest()`, and `forkJoin()`:
 
