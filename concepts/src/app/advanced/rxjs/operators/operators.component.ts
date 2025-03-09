@@ -247,6 +247,69 @@ export class OperatorsComponent implements OnInit {
     // 3. Completion Requirement: Each observable must complete before moving on to the next.
     // 4. Use Case: Best when you need to execute observables in sequence, such as processing tasks that depend on the previous task's completion.
 
+    // Making API Calls in Sequence
+    // Storing API Responses from `concat()` for UI Use
+
+    // To store the responses from sequential API calls and use them in the UI, follow these steps:  
+    
+    // ### **Solution: Store Responses in Component Variables**
+    // - Use **component properties** to store responses.  
+    // - **Update UI** after each API call completes.  
+
+      //import { Component } from '@angular/core';
+      // import { concat, of, throwError } from 'rxjs';
+      // import { delay, catchError, defaultIfEmpty } from 'rxjs/operators';
+
+      // @Component({
+      //   selector: 'app-root',
+      //   template: `
+      //     <h2>API Responses</h2>
+      //     <p *ngIf="userData">User Data: {{ userData }}</p>
+      //     <p *ngIf="userOrders">User Orders: {{ userOrders }}</p>
+      //     <p *ngIf="errorMessage" style="color: red;">Error: {{ errorMessage }}</p>
+      //   `
+      // })
+      // export class AppComponent {
+      // userData: string | null = null;
+      // userOrders: string | null = null;
+    //   constructor() {
+    //     this.fetchData();
+    //   }
+    //   fetchData() {
+    //     const getUser = of('User Data: Ganesh Chukka').pipe( // Simulating empty response
+    //       delay(2000),
+    //       defaultIfEmpty('No User Data Found'), // Handle empty response
+    //       catchError(err => {
+    //         this.errorMessage = 'Failed to fetch user data';
+    //         return of('Error in User API'); // Fallback value
+    //       })
+    //     );
+    
+    //     const getOrders = throwError(() => new Error('API Failed')).pipe( // Simulating error
+    //       delay(1000),
+    //       catchError(err => {
+    //         this.errorMessage = 'Failed to fetch user orders';
+    //         return of('Error in Orders API'); // Fallback value
+    //       })
+    //     );
+    
+    //     concat(getUser, getOrders).subscribe(response => {
+    //       if (!this.userData) {
+    //         this.userData = response; // Store user data
+    //       } else {
+    //         this.userOrders = response; // Store order data
+    //       }
+    //     });
+    //   }
+    // }  
+    // ---
+    
+    // *How it Works?
+    // 1. Calls **getUser API** (after 2 sec) → Stores response in `userData`.  
+    // 2. Calls **getOrders API** (after 1 sec) → Stores response in `userOrders`.  
+    // 3. The UI updates **automatically** with stored responses.  
+  
+
     testConcat() {
       const obs1$ = of(1, 2, 3, 4, 5, 6, 7);
       const obs2$ = new Observable((obs) => {
@@ -269,7 +332,14 @@ export class OperatorsComponent implements OnInit {
     // 3. Error Handling: If any observable errors out, `forkJoin` will not emit any values and will propagate the error.
     // 4. Use Case: Best for combining results of multiple HTTP requests that depend on each other and should be processed together once all are completed.
 
-    // Example:
+    // Examples:
+     // const api1 = of('Response 1').pipe(delay(2000)); // Simulating a delay
+    // const api2 = of('Response 2').pipe(delay(3000)); // Simulating a delay
+    // const api3 = of('Response 3').pipe(delay(1000)); // Simulating a delay
+
+    // forkJoin([api1, api2, api3]).subscribe((results:any) => {
+    //   console.log(results); // Output: ['Response 1', 'Response 2', 'Response 3'] (after 3 sec)
+    // });
 
     testForkJoin() {
       const observable = forkJoin({
@@ -295,15 +365,17 @@ export class OperatorsComponent implements OnInit {
       });
     }
 
+   
+
     // Difference between `concat()`, `combineLatest()`, and `forkJoin()`:
 
     // | Feature                | `concat()`                                                 | `combineLatest()`                                              | `forkJoin()`                                                |
     // |------------------------|------------------------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------|
-    // Emission Timing     | Emits values sequentially, waiting for each observable to complete before starting the next. | Emits whenever any of the observables emits a new value.       | Emits only once when all observables complete.               |
-    // Emission Values     | Emits all values from the first observable, then all from the next, in sequence. | Emits the latest values from all observables as soon as all have emitted at least once. | Emits the last values from all observables upon completion.  |
-    // Frequency of Emission | Emits multiple times, sequentially for each observable.    | Can emit multiple times as inputs change.                      | Emits only once, at the end.                                 |
-    // Dependency          | Observables are processed one after another.                | Waits for all observables to emit at least once, then emits on any new value from any observable. | Waits for all observables to complete, then emits a single value. |
-    // Use Case            | Ideal for scenarios where you need to execute tasks one after another in sequence. | Ideal for real-time data updates, such as combining UI inputs or streaming data. | Ideal for scenarios where you need final results from multiple asynchronous operations, like completing all HTTP requests before processing. |
+    // Emission Timing          | Emits values sequentially, waiting for each observable to complete before starting the next. | Emits whenever any of the observables emits a new value.       | Emits only once when all observables complete.               |
+    // Emission Values          | Emits all values from the first observable, then all from the next, in sequence. | Emits the latest values from all observables as soon as all have emitted at least once. | Emits the last values from all observables upon completion.  |
+    // Frequency of Emission    | Emits multiple times, sequentially for each observable.    | Can emit multiple times as inputs change.                      | Emits only once, at the end.                                 |
+    // Dependency               | Observables are processed one after another.                | Waits for all observables to emit at least once, then emits on any new value from any observable. | Waits for all observables to complete, then emits a single value. |
+    // Use Case                 | Ideal for scenarios where you need to execute tasks one after another in sequence. | Ideal for real-time data updates, such as combining UI inputs or streaming data. | Ideal for scenarios where you need final results from multiple asynchronous operations, like completing all HTTP requests before processing. |
 
     // Summary:
     // concat()`: Use when you need to run observables in sequence, emitting all values from one before starting the next.
