@@ -5,19 +5,24 @@
 // Push	  Promise	      Observable
 	
 // 
-// Observable is a class . is a data source that can emit multiple values over time
+// Observable is a class . ( dhanikai mand object create chesi use chesukovachhu object is created usin new keyword) is a data source that can emit multiple values over time
 //  if we want to use we have to create that time of object / instance
 // 	Ex : let o = new observable()
+
 
 // 	Observables (to easy do asynchronous calls)
 // 	Data vachina pratisari notify cheyali anukunte at that case also we can use observables
 //  ex youtube channel subscribe
 
-// 	To create object of this type takes a call back function
+// to create object of this type , we have provide a callback function 
 // 	Let o = new observable (function(){})
+// to that call back function we need to pass on argument 
+// 	Let o = new observable (function(arg){})
+// (arg will help to  data sending ki )
+
 // 	This object emits some data continuously or error with the help of next(), error() methods
 // 	Ex : let myobs = new Observable(function(observer){  observable is constructor function
-//  observer - data emit ..
+//  observer - data emit .. 
 
 // observer.next(1);  next is used for passing the data to whom subscribe
 // observer.complete()  when we write the complete the it complete below statement wont execute
@@ -50,19 +55,26 @@ export class ObservablesComponent implements OnInit {
   }
 
   basicObs() {
+
     const obs$ = new Observable((subscriber) => { //manuvalu creation and sending the value 
       subscriber.next(1); // sending the values to subscribers
-      subscriber.next(2);
-      subscriber.error('Error');
-      subscriber.complete();
+      subscriber.next(2); // 
+      subscriber.error('Error'); // error unde error kuda send cheyali kadha so 
+      subscriber.complete(); // complete also we can send to confirm , simply call this method dont send any argmument in complete method 
       subscriber.next(3);
     });
 
-    obs$.subscribe({
-      next: (x) => console.log('Next: ' + x),
+// here next(), error() and complete dhavra send chesina data obs$ store avuthundhi dhanni manadm subscribe chesukunte will get data
+// error , complete method call cheyanathavararu / call avvanatha varaku next nunchi data we can get 
+    obs$.subscribe({ // single argument we are giving object form lo estunnam, so its object so below key value based 
+      next: (data) => console.log('Next: ' + data),
       error: (err) => console.error('Error: ' + err),
-      complete: () => console.log('Completed'),
+      complete: () => console.info('Completed') // this will help once process completed if we want to do anything then it will help 
     });
+
+
+    // general tip : check the problem tab in vs code command lin if any warning or error are there and you can fix those 
+
   }
 
   ofObs() {
