@@ -74,6 +74,7 @@ export class OperatorsComponent implements OnInit {
 
   Great topic! Here are **real-time, simple examples** of
 👉 `mergeMap`, `concatMap`, and `switchMap` (RxJS), with **use cases** 👇
+https://www.linkedin.com/posts/kishor-dhokade_rxjs-angular-frontenddevelopment-activity-7418195345035313152-2vKO?utm_source=share&utm_medium=member_android&rcm=ACoAACuTRegBxXpHmDLzARonGNh0lhX9ZNhSdbg
 
 ---
 
