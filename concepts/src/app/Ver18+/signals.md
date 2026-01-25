@@ -1,5 +1,11 @@
 # Signals in Angular — Simple explanation with examples
 
+
+### https://media.licdn.com/dms/document/media/v2/D4D1FAQF0VWql-JOkcg/feedshare-document-pdf-analyzed/B4DZvHjlmAG0AY-/0/1768579555526?e=1770249600&v=beta&t=ix-1_yqG0V1CUlmWArvOLAZCzQwAFhH0PoChbRqw0X4
+
+### https://www.linkedin.com/posts/anukool-naik_professional-guidesignals-in-ts-angular-activity-7417968745215639553-iDpU?trk=public_post_comment-text
+
+
 Signals are a lightweight reactive primitive introduced in Angular 16. They make local and shared state reactive without manual subscriptions and enable fine-grained change detection.
 
 ## What are signals?

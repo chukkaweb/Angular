@@ -1,6 +1,7 @@
 # How to create one new library in Angular and how to deploy it:
 Explanation: Use ng generate library to create a new Angular library, and ng-packagr to bundle it for distribution. Publish to npm for deployment.
 
+intervie prepartion link https://www.linkedin.com/posts/umahata_persistent-systems-%F0%9D%97%BC%F0%9D%97%B3%F0%9D%97%B3%F0%9D%97%B2%F0%9D%97%BF%F0%9D%97%B2%F0%9D%97%B1-%F0%9D%97%BA%F0%9D%98%86-%F0%9D%97%B3-activity-7415656203894140928-8TfM
 
 # difference between interface and type 
 Both interface and type can be used to define the shape of an object.

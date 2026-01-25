@@ -3,6 +3,8 @@
 // trackBy that will update the ui when the latest changes 
 // change detection
 
+// https://www.linkedin.com/posts/happyrawat_angular-frontenddevelopment-angularinterview-activity-7418857256592519168-hpwO
+
 // 1. Implement server-side rendering (SSR) – This can significantly improve the initial load time of your pages.
 // https://lnkd.in/d6CGP8F5
 
