@@ -71,3 +71,83 @@ export class OperatorsComponent implements OnInit {
 
     // Real-Time Use Case: Fetching a list of items from an API and processing them one by one.
 }
+
+  Great topic! Here are **real-time, simple examples** of
+👉 `mergeMap`, `concatMap`, and `switchMap` (RxJS), with **use cases** 👇
+
+---
+
+## 🔹 1. `mergeMap` – Run all requests in parallel
+
+### 🧠 Use Case:
+
+User clicks multiple buttons → You want **all API calls** to run at the same time.
+
+### ✅ Example:
+
+```ts
+from([1, 2, 3]).pipe(
+  mergeMap(id => this.api.getUser(id))
+).subscribe(console.log);
+```
+
+👉 All API calls happen **together**.
+👉 Order is **not guaranteed**.
+
+---
+
+## 🔹 2. `concatMap` – Run requests one by one (in order)
+
+### 🧠 Use Case:
+
+Upload multiple files → Must upload **one after another**, not in parallel.
+
+### ✅ Example:
+
+```ts
+from(files).pipe(
+  concatMap(file => this.api.uploadFile(file))
+).subscribe(console.log);
+```
+
+👉 Next upload starts **only after** previous finishes.
+👉 Order is **maintained**.
+
+---
+
+## 🔹 3. `switchMap` – Cancel previous request and use the latest
+
+### 🧠 Use Case:
+
+Search input box → User types quickly → You only want the **latest search result**.
+
+### ✅ Example:
+
+```ts
+this.searchControl.valueChanges.pipe(
+  debounceTime(300),
+  switchMap(text => this.api.search(text))
+).subscribe(console.log);
+```
+
+👉 Old API calls are **cancelled** when a new value comes.
+👉 Only the **latest result** is processed.
+
+---
+
+## 🟢 Simple Comparison Table:
+
+| Operator    | Behavior                | Real Example          |
+| ----------- | ----------------------- | --------------------- |
+| `mergeMap`  | Parallel requests       | Load multiple users   |
+| `concatMap` | Sequential requests     | Upload files in order |
+| `switchMap` | Cancel old, keep latest | Search box API        |
+
+---
+
+If you want, I can also give:
+
+* Error handling examples
+* Interview one-liners
+* Marble diagram visuals
+
