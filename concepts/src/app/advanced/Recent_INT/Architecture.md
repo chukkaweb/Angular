@@ -109,7 +109,6 @@ interval(1000)
 
 ## switchMap (Cancel previous request)
 Use case: Search input
-
 ```ts
 this.searchControl.valueChanges.pipe(
   debounceTime(300),
@@ -144,8 +143,6 @@ click$.pipe(
 ).subscribe();
 ```
 
-
-
 ## forkJoin (Multiple API calls together)
 
 ```ts
@@ -156,7 +153,6 @@ forkJoin({
   console.log(res.users, res.roles);
 });
 ```
-
 
 
 ## Subject vs BehaviorSubject vs ReplaySubject
