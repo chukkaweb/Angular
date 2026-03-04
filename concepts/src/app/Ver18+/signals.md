@@ -43,58 +43,205 @@ export class AppComponent {
 - `counter()` reads the current value.
 - `counter.update()` or `counter.set()` changes the value and updates the view.
 
-## Example 2 — Computed signals
+
+# 🔹 Quick Context
+
+In Angular Signals we have:
+
 ```ts
-import { Component, signal, computed } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <h1>Counter: {{ counter() }}</h1>
-    <h2>Double: {{ doubleCounter() }}</h2>
-    <button (click)="increment()">Increment</button>
-  `,
-})
-export class AppComponent {
-  counter = signal(0);
-  doubleCounter = computed(() => this.counter() * 2);
-
-  increment() {
-    this.counter.update(v => v + 1);
-  }
-}
+signal()     → holds state
+computed()   → derives state
+effect()     → reacts to state change (side effects)
 ```
 
-`computed` values recalculate automatically when dependencies change.
 
-## Example 3 — Effects
+# ✅ 1️⃣ computed() – Derived State (Pure & Synchronous)
+
+## 🔹 What is computed()?
+
+`computed()` is used to create **derived values** based on one or more signals.
+
+It automatically recalculates when dependency signals change.
+
+👉 It is like a formula.
+👉 It should be pure (no API calls, no side effects)
+
+
+## 🔹 Real-Time Example 1: Cart Total Price
+
+### Problem:
+You have cart items and need total price.
+
+### Using computed()
 ```ts
-import { Component, signal, effect } from '@angular/core';
+cartItems = signal([
+  { name: 'Laptop', price: 50000 },
+  { name: 'Mouse', price: 1000 }
+]);
 
-@Component({
-  selector: 'app-root',
-  template: `
-    <h1>Counter: {{ counter() }}</h1>
-    <button (click)="increment()">Increment</button>
-  `,
-})
-export class AppComponent {
-  counter = signal(0);
-
-  constructor() {
-    effect(() => {
-      console.log('Counter changed to:', this.counter());
-    });
-  }
-
-  increment() {
-    this.counter.update(v => v + 1);
-  }
-}
+totalPrice = computed(() =>
+  this.cartItems().reduce((sum, item) => sum + item.price, 0)
+);
 ```
 
-Use `effect` for logging, analytics, or imperative side effects (avoid using effects to drive UI rendering — signals handle that).
+### How it works:
+* If cartItems change → totalPrice auto recalculates
+* No manual subscription
+* No change detection headache
 
+### Interview Explanation:
+
+> computed() is used for derived state. For example, in an e-commerce app, I use computed() to calculate total cart price based on cart items. It automatically recalculates when items change and avoids manual subscriptions.
+
+## 🔹 Real-Time Example 2: Form Validation Status
+
+```ts
+username = signal('');
+password = signal('');
+
+isFormValid = computed(() =>
+  this.username().length > 3 && this.password().length > 6
+);
+```
+Button auto enables/disables when values change.
+
+## 🔹 When NOT to use computed()
+
+❌ Don’t call APIs inside computed
+❌ Don’t update another signal inside it
+❌ Don’t use for async work
+
+Because it must stay pure.
+
+# ✅ 2️⃣ effect() – Side Effects (Reactions)
+
+## 🔹 What is effect()?
+
+`effect()` runs automatically whenever dependent signals change.
+
+It is used for:
+* API calls
+* Logging
+* LocalStorage updates
+* DOM interactions
+* Analytics tracking
+
+👉 Think of it like automatic reaction.
+
+## 🔹 Real-Time Example 1: Save to LocalStorage
+
+```ts
+user = signal({ name: 'Ganesh' });
+
+effect(() => {
+  localStorage.setItem('user', JSON.stringify(this.user()));
+});
+```
+Whenever user changes → localStorage updates automatically.
+
+
+### Interview Explanation:
+
+> I use effect() for side effects. For example, when user profile signal changes, I automatically persist it in localStorage using effect().
+
+## 🔹 Real-Time Example 2: Trigger API on Filter Change
+
+```ts
+filter = signal('all');
+
+effect(() => {
+  const value = this.filter();
+  this.loadData(value);
+});
+```
+Whenever filter changes → API is triggered.
+
+⚠ Important:
+This is allowed because API call is side effect.
+
+## 🔹 Real-Time Example 3: Analytics Tracking
+```ts
+selectedProduct = signal(null);
+effect(() => {
+  if (this.selectedProduct()) {
+    console.log('User viewed product:', this.selectedProduct());
+  }
+});
+```
+
+Used for tracking events.
+
+# 🔥 computed() vs effect() (Simple Interview Comparison)
+
+| computed()           | effect()          |
+| -------------------- | ----------------- |
+| Derived state        | Side effect       |
+| Pure function        | Impure allowed    |
+| Returns value        | No return         |
+| Sync                 | Can trigger async |
+| Example: total price | Example: API call |
+
+
+# 🧠 Advanced Interview Point
+
+If interviewer asks:
+
+"What happens internally?"
+
+You can say:
+
+> computed() is memoized. It recalculates only when dependencies change.
+> effect() tracks dependencies automatically and re-runs when they change.
+
+That sounds senior.
+
+# 🔥 Very Important: When to Avoid effect()
+
+Don’t overuse effect for state updates like:
+
+```ts
+effect(() => {
+  this.total.set(this.price() * this.qty());
+});
+```
+
+Instead use computed:
+
+```ts
+total = computed(() => this.price() * this.qty());
+```
+
+Because:
+Derived state → computed
+Side effects → effect
+
+
+# 💡 Real Enterprise Example (Senior-Level Answer)
+
+In large Angular app:
+
+* Use signal() for local component state
+* Use computed() for UI derived state
+* Use effect() for:
+
+  * API trigger on filter change
+  * Sync with LocalStorage
+  * Analytics tracking
+  * External library integration
+
+
+# 🎯 Perfect Interview Answer (Short Version)
+
+If interviewer asks:
+
+“What is computed and effect?”
+
+You can say:
+
+> computed() is used for derived state. It recalculates automatically when dependent signals change and should remain pure. For example, calculating total cart value.
+> effect() is used for side effects like API calls, logging, or updating localStorage when a signal changes.
+
+Clear. Confident. Senior.
 
 
  **normal variable vs signal works completely differently**.
