@@ -1,5 +1,6 @@
 # Signals in Angular — Simple explanation with examples
 
+signals ---> https://www.youtube.com/watch?v=zCaw_3rqgCM
 
 ### https://media.licdn.com/dms/document/media/v2/D4D1FAQF0VWql-JOkcg/feedshare-document-pdf-analyzed/B4DZvHjlmAG0AY-/0/1768579555526?e=1770249600&v=beta&t=ix-1_yqG0V1CUlmWArvOLAZCzQwAFhH0PoChbRqw0X4
 
