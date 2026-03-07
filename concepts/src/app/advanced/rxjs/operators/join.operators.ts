@@ -163,6 +163,15 @@
       // forkJoin([api1, api2, api3]).subscribe((results:any) => {
       //   console.log(results); // Output: ['Response 1', 'Response 2', 'Response 3'] (after 3 sec)
       // });
+
+    //   forkJoin() {
+    // const obs1$ = of(1, 2, 3).pipe(delay(100));
+    // const obs2$ = of('1', '2', '3');
+    // const obs3$ = of('a', 'b', 'c', 'd', 'e', 'f');
+    // const srcThree = throwError(() => new Error('Something failed!'));
+    // const cl = forkJoin([obs1$, obs2$, obs3$]);
+    // cl.subscribe((values) => console.log(values));
+  // }
   
       testForkJoin() {
         const observable = forkJoin({
@@ -192,13 +201,13 @@
   
       // Difference between `concat()`, `combineLatest()`, and `forkJoin()`:
   
-      // | Feature                | `concat()`                                                 | `combineLatest()`                                              | `forkJoin()`                                                |
-      // |------------------------|------------------------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------|
-      // Emission Timing          | Emits values sequentially, waiting for each observable to complete before starting the next. | Emits whenever any of the observables emits a new value.       | Emits only once when all observables complete.               |
-      // Emission Values          | Emits all values from the first observable, then all from the next, in sequence. | Emits the latest values from all observables as soon as all have emitted at least once. | Emits the last values from all observables upon completion.  |
-      // Frequency of Emission    | Emits multiple times, sequentially for each observable.    | Can emit multiple times as inputs change.                      | Emits only once, at the end.                                 |
-      // Dependency               | Observables are processed one after another.                | Waits for all observables to emit at least once, then emits on any new value from any observable. | Waits for all observables to complete, then emits a single value. |
-      // Use Case                 | Ideal for scenarios where you need to execute tasks one after another in sequence. | Ideal for real-time data updates, such as combining UI inputs or streaming data. | Ideal for scenarios where you need final results from multiple asynchronous operations, like completing all HTTP requests before processing. |
+      // | Feature                | `concat()`                                                                                    | `combineLatest()`                                                                      | `forkJoin()`                                                |
+      // |------------------------|------------------------------------------------------------                                  |----------------------------------------------------------------                         |-------------------------------------------------------------|
+      // Emission Timing          | Emits values sequentially, waiting for each observable to complete before starting the next. | Emits whenever any of the observables emits a new value.                                 | Emits only once when all observables complete.               |
+      // Emission Values          | Emits all values from the first observable, then all from the next, in sequence.             | Emits the latest values from all observables as soon as all have emitted at least once.  | Emits the last values from all observables upon completion.  |
+      // Frequency of Emission    | Emits multiple times, sequentially for each observable.                                      | Can emit multiple times as inputs change.                                                | Emits only once, at the end.                                 |
+      // Dependency               | Observables are processed one after another.                                                 | Waits for all observables to emit at least once, then emits on any new value from any observable. | Waits for all observables to complete, then emits a single value. |
+      // Use Case                 | Ideal for scenarios where you need to execute tasks one after another in sequence.           | Ideal for real-time data updates, such as combining UI inputs or streaming data.                  | Ideal for scenarios where you need final results from multiple asynchronous operations, like completing all HTTP requests before processing. |
   
       // Summary:
       // concat()`: Use when you need to run observables in sequence, emitting all values from one before starting the next.

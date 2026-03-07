@@ -1,6 +1,6 @@
 
     // Filtering Operators:
-    // filter : Emits only those values from the source observable that pass a provided condition.
+    filter : Emits only those values from the source observable that pass a provided condition.
     const filterObs = from([1, 2, 5, 4, 6]).pipe(
         filter((value) => value % 2 !== 0)
       );

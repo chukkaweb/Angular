@@ -209,3 +209,239 @@
     // mergeMap`: Executes all observables concurrently, merging their results as they arrive.
     // switchMap`: Cancels previous observables when a new value arrives, and only the most recent observable is active.
     // concatMap`: Executes observables sequentially, one after the other, preserving the order.
+
+// # 1️⃣ `merge` vs `mergeMap`
+
+// ## 🔹 merge
+
+// **Definition:**
+// `merge` **combines multiple Observables and emits values as they arrive.**
+
+// 👉 It does **NOT transform values**, it just combines streams.
+
+// ### Example
+
+// ```ts
+// import { merge, interval } from 'rxjs';
+
+// const obs1 = interval(1000);
+// const obs2 = interval(2000);
+
+// merge(obs1, obs2).subscribe(console.log);
+// ```
+
+// **Output**
+
+// ```
+// 0
+// 0
+// 1
+// 2
+// 1
+// 3
+// ```
+
+// ### Real Angular Example
+
+// Combine **user clicks + timer events**
+
+// ```ts
+// merge(buttonClick$, timer$).subscribe(data => {
+//   console.log(data);
+// });
+// ```
+
+// ---
+
+// ## 🔹 mergeMap
+
+// **Definition:**
+// `mergeMap` **maps each value to a new Observable and merges all results simultaneously.**
+
+// 👉 Used when **each value triggers an API call**
+
+// ### Example
+
+// ```ts
+// source$.pipe(
+//   mergeMap(id => this.http.get(`/api/user/${id}`))
+// )
+// ```
+
+// ### Real Angular Example
+
+// Load **multiple users in parallel**
+
+// ```ts
+// from([1,2,3]).pipe(
+//   mergeMap(id => this.http.get(`/api/user/${id}`))
+// )
+// ```
+
+// All **3 API calls run in parallel**.
+
+// ---
+
+// # 2️⃣ `concat` vs `concatMap`
+
+// ## 🔹 concat
+
+// **Definition:**
+// `concat` **runs Observables one after another (sequentially).**
+
+// 👉 Next starts **only after previous completes**
+
+// ### Example
+
+// ```ts
+// import { concat, of } from 'rxjs';
+
+// concat(
+//   of('A'),
+//   of('B'),
+//   of('C')
+// ).subscribe(console.log);
+// ```
+
+// Output
+
+// ```
+// A
+// B
+// C
+// ```
+
+// ---
+
+// ## 🔹 concatMap
+
+// **Definition:**
+// `concatMap` **maps values to Observables but executes them one by one.**
+
+// 👉 Used when **order matters**
+
+// ### Example
+
+// ```ts
+// source$.pipe(
+//   concatMap(id => this.http.get(`/api/order/${id}`))
+// )
+// ```
+
+// ### Real Angular Example
+
+// Submit **form requests sequentially**
+
+// Example:
+
+// ```
+// Save Step1
+// Save Step2
+// Save Step3
+// ```
+
+// ```ts
+// from([1,2,3]).pipe(
+//   concatMap(id => this.saveStep(id))
+// )
+// ```
+
+// Requests run **one by one**.
+
+// ---
+
+// # 3️⃣ `combineLatest` vs `combineLatestAll`
+
+// ## 🔹 combineLatest
+
+// **Definition:**
+// `combineLatest` **combines latest values from multiple Observables.**
+
+// 👉 Emits when **any Observable changes**
+
+// ### Example
+
+// ```ts
+// combineLatest([
+//   user$,
+//   settings$
+// ]).subscribe(([user, settings]) => {
+//   console.log(user, settings);
+// });
+// ```
+
+// ### Real Angular Example
+
+// Combine **filters + search**
+
+// ```ts
+// combineLatest([
+//   searchText$,
+//   category$
+// ]).subscribe(([search, category]) => {
+//   this.loadProducts(search, category);
+// });
+// ```
+
+// ---
+
+// ## 🔹 combineLatestAll
+
+// **Definition:**
+// `combineLatestAll` **combines latest values from multiple inner Observables emitted by a source Observable.**
+
+// 👉 Used when **source emits Observables**
+
+// ### Example
+
+// ```ts
+// source$.pipe(
+//   combineLatestAll()
+// )
+// ```
+
+// Example scenario
+
+// ```
+// Observable -> emits multiple Observables
+// combineLatestAll -> combine their latest values
+// ```
+
+// ---
+
+// # 🧠 Easy Interview Trick (Very Important)
+
+// | Operator         | Meaning                          |
+// | ---------------- | -------------------------------- |
+// | merge            | combine streams                  |
+// | mergeMap         | parallel API calls               |
+// | concat           | sequential Observables           |
+// | concatMap        | sequential API calls             |
+// | combineLatest    | combine latest values            |
+// | combineLatestAll | combine latest inner Observables |
+
+// ---
+
+// # 🎯 Super Simple Interview Answer (Best)
+
+// **mergeMap vs concatMap**
+
+// > mergeMap executes Observables in **parallel**, while concatMap executes them **one after another in order**.
+
+// Example:
+
+// * **mergeMap → load users in parallel**
+// * **concatMap → process payments sequentially**
+
+// ---
+
+// # 💡 Senior Angular Interview Tip
+
+// Most used operators in **real Angular apps**
+
+// ```
+// switchMap  → API calls (search)
+// mergeMap   → parallel requests
+// concatMap  → sequential requests
+// combineLatest → filters/search forms
+// ```

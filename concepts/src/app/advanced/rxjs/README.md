@@ -1,11 +1,10 @@
 
 # RxJS (Reactive Extensions for JavaScript):
 ### What is RxJS?
-RxJS is a library for reactive programming using Observables, which allows asynchronous and event-based programs to be written in JavaScript.
+RxJS is a library for reactive programming using Observables, which allows asynchronous and event-based programs to be written in JavaScript. simple way
 - It provides a powerful set of operators for handling asynchronous events, making it easier to manage complex data streams like HTTP requests, user input events, and real-time updates.
 
 ### Why RxJS?
-
 - RxJS simplifies handling asynchronous data streams and enables developers to easily manage tasks like event handling, HTTP requests, and WebSocket connections.
 - It provides comparability, allowing you to build data flows that are easy to understand and maintain.
 - Ideal for complex Angular applications where components need to share state or respond to changes in a predictable way.
