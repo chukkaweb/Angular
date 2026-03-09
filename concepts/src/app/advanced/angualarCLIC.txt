@@ -51,8 +51,6 @@ How the Angular CLI Works: Simple Points
 9. Configuration:
    - You can manage environment settings, build configurations, and project settings through files like `angular.json` and `environment.ts`.
 
----
-
 Summary:
 - ng new: Creates a new Angular project.
 - ng generate: Creates components, services, etc.

@@ -7,8 +7,6 @@
 // 2. Reusability: With Angular Elements, you can create reusable UI components that can work outside of Angular environments.
 // 3. Cross-Framework: You can use Angular-built components in applications that don’t use Angular (like a React or plain HTML app).
 
-// ---
-
 //  Basic Example of Angular Elements
 
 // Let’s say you have an Angular component called `HelloComponent`:

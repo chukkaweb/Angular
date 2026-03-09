@@ -7,10 +7,7 @@
 
 *No code needed — this is the foundation principle.*
 
----
-
 ## 2️⃣ Feature-Based Architecture
-
 ### 📁 Folder Structure
 
 ```
@@ -37,15 +34,11 @@ export const productsRoutes: Routes = [
 ];
 ```
 
----
-
 ## 3️⃣ Lazy Loading (Mandatory)
-
 ### ✅ Lazy Load Feature in App Routes
 
 ```ts
 import { Routes } from '@angular/router';
-
 export const routes: Routes = [
   {
     path: 'products',
@@ -59,10 +52,7 @@ export const routes: Routes = [
 
 ### 🔹 Benefit: Products feature loads **only when user visits /products**
 
----
-
 ## 4️⃣ Smart vs Dumb Components
-
 ### 🔹 Smart Component (Container)
 
 ```ts
@@ -80,13 +70,11 @@ export class ProductsContainerComponent {
   products = [];
 
   constructor(private productsService: ProductsService) {}
-
   ngOnInit() {
     this.productsService.getProducts().subscribe((data) => {
       this.products = data;
     });
   }
-
   onSelect(product: Product) {
     console.log('Selected:', product);
   }
@@ -110,17 +98,13 @@ export class ProductsContainerComponent {
 export class ProductListComponent {
   @Input() products: Product[] = [];
   @Output() select = new EventEmitter<Product>();
-
   trackById(index: number, item: Product) {
     return item.id;
   }
 }
 ```
 
----
-
 ## 5️⃣ State Management Strategy
-
 ### 🔹 Local State → Signals
 
 ```ts
@@ -128,7 +112,6 @@ import { signal } from '@angular/core';
 
 export class CounterComponent {
   count = signal(0);
-
   increment() {
     this.count.update((c) => c + 1);
   }
@@ -158,10 +141,8 @@ export const loadProductsSuccess = createAction(
 );
 ```
 
----
 
 ## 6️⃣ Performance Best Practices
-
 ### ✅ OnPush Change Detection
 
 ```ts
@@ -176,7 +157,6 @@ export class ProductCardComponent {
 ```
 
 ### ✅ trackBy
-
 ```html
 <li *ngFor="let item of items; trackBy: trackById">
 ```
@@ -188,14 +168,11 @@ trackById(index: number, item: Item) {
 ```
 
 ### ✅ Virtual Scrolling
-
 ```html
 <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
   <div *cdkVirtualFor="let item of items">{{ item.name }}</div>
 </cdk-virtual-scroll-viewport>
 ```
-
----
 
 ## 7️⃣ API & Core Layer Design
 
@@ -207,7 +184,6 @@ export class ProductsService {
   private apiUrl = '/api/products';
 
   constructor(private http: HttpClient) {}
-
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
@@ -228,10 +204,7 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ```
 
----
-
 ## 8️⃣ Scalability Is Also About Teams
-
 ### 🔹 Strict TypeScript
 
 ```json
@@ -242,7 +215,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 ```
-
 ### 🔹 ESLint Example Rule
 
 ```json
@@ -254,10 +226,7 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ```
 
----
-
 ## 9️⃣ Modularization
-
 ### 🔹 Core Module (Singleton Services)
 
 ```ts
@@ -278,10 +247,7 @@ export class CoreModule {}
 export class ButtonComponent {}
 ```
 
----
-
 ## 🔟 Testing Strategy
-
 ### 🔹 Unit Test for Service
 
 ```ts
@@ -303,8 +269,6 @@ it('should load products page', () => {
   cy.contains('Products');
 });
 ```
-
----
 
 ## 🧠 Final Summary
 

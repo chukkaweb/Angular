@@ -1,8 +1,5 @@
 
 # 🏗️ Angular Scalable Architecture — Diagrams
-
----
-
 ## 1️⃣ High-Level Application Architecture
 
 ```mermaid
@@ -23,17 +20,13 @@ graph TD
 ```
 
 **Explanation:**
-
 * UI = what user sees
 * Smart components handle logic
 * Dumb components render UI
 * State layer manages app data
 * API layer talks to backend
 
----
-
 ## 2️⃣ Feature-Based Folder Architecture
-
 ```mermaid
 graph TD
     App[App Root]
@@ -57,8 +50,6 @@ graph TD
 **Explanation:**
 Each feature is isolated and independently scalable.
 
----
-
 ## 3️⃣ Lazy Loading Flow
 
 ```mermaid
@@ -72,8 +63,6 @@ sequenceDiagram
 
 **Explanation:**
 Feature loads **only when needed**, improving performance.
-
----
 
 ## 4️⃣ Smart vs Dumb Component Interaction
 
@@ -89,8 +78,6 @@ sequenceDiagram
 
 * Smart = logic + API
 * Dumb = UI only
-
----
 
 ## 5️⃣ State Management Data Flow
 
@@ -108,10 +95,8 @@ graph TD
 **Explanation:**
 Predictable one-way data flow = fewer bugs.
 
----
 
 ## 6️⃣ API Layer with Interceptors
-
 ```mermaid
 graph TD
     UI --> Service
@@ -125,10 +110,7 @@ graph TD
 **Explanation:**
 Interceptors handle auth, errors, and loaders globally.
 
----
-
 ## 7️⃣ Performance Optimization Architecture
-
 ```mermaid
 graph TD
     UI --> OnPush
@@ -140,10 +122,7 @@ graph TD
 **Explanation:**
 Multiple small optimizations = big performance gains.
 
----
-
 ## 8️⃣ Team Scalability Architecture
-
 ```mermaid
 graph TD
     Team --> CodeStandards
@@ -156,4 +135,3 @@ graph TD
 **Explanation:**
 Good architecture scales not just code — but **people**.
 
----
