@@ -45,8 +45,6 @@ Instead of 3 calls → 1 call shared.
 ## Interview Line
 "I use shareReplay(1) to cache API responses and prevent multiple unnecessary network calls across components."
 
-
-
 # 2️⃣ Interceptors (Headers, Errors, Mocking)
 ## A. Add Custom Headers (JWT)
 ```ts
@@ -200,8 +198,6 @@ ngOnDestroy() {
   this.destroy$.complete();
 }
 ```
-
-
 
 ## ✅ Best Practice 2: Async Pipe (Recommended)
 

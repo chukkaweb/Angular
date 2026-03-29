@@ -104,14 +104,11 @@ Good:
 * Utility → Validation
 
 
-
 ## O – Open/Closed Principle
-
 Open for extension, closed for modification.
 
 Example:
 Instead of editing existing class, extend it.
-
 
 
 ## L – Liskov Substitution Principle
@@ -119,11 +116,9 @@ Instead of editing existing class, extend it.
 Child class should replace parent without breaking behavior.
 
 
-
 ## I – Interface Segregation
 
 Don’t force classes to implement unused methods.
-
 
 
 ## D – Dependency Inversion
@@ -132,8 +127,6 @@ Depend on abstractions, not concrete classes.
 
 Angular example:
 Use dependency injection instead of new keyword.
-
-
 
 ## Interview One-Line Answer
 
@@ -191,7 +184,6 @@ hotfix/prod-login-error
 ```
 
 After fix:
-
 * Merge to master
 * Merge to develop
 
@@ -219,13 +211,11 @@ Use:
 ```
 https://update.angular.io
 ```
-
 (Official Angular upgrade guide)
 
 ## Step 3: Check Third-Party Libraries
 
 Verify:
-
 * Angular Material compatibility
 * NgRx version
 * Third-party UI libs

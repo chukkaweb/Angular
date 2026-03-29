@@ -6,6 +6,14 @@ signals > https://www.youtube.com/watch?v=zCaw_3rqgCM
 
 ### https://www.linkedin.com/posts/anukool-naik_professional-guidesignals-in-ts-angular-activity-7417968745215639553-iDpU?trk=public_post_comment-text
 
+Simple def : A signal is a value that remembers its current state and automatically updates anything that depends on it when it changes.
+Signal = a variable with memory + auto update
+When value changes → UI updates automatically
+
+It’s like a live variable. When the value changes, Angular automatically updates wherever it’s used, similar to how a battery percentage updates on a phone screen.
+
+room light example when turn OFF room dark , vice versa
+phone battery percentage 
 
 Signals are a lightweight reactive primitive introduced in Angular 16. They make local and shared state reactive without manual subscriptions and enable fine-grained change detection.
 
@@ -54,10 +62,41 @@ computed()   → derives state
 effect()     → reacts to state change (side effects)
 ```
 
-
 # ✅ 1️⃣ computed() – Derived State (Pure & Synchronous)
 
 ## 🔹 What is computed()?
+
+👉 **computed = calculated value based on other signals**
+
+# 📦 Real-Life Example
+
+### Example: Shopping
+* Price = 100
+* Quantity = 2
+👉 Total = 200 (calculated)
+If quantity changes → total updates automatically
+✔ That’s `computed()`
+
+# 💻 Code Example
+
+```ts
+const price = signal(100);
+const quantity = signal(2);
+
+const total = computed(() => price() * quantity());
+```
+
+👉 Change quantity:
+
+```ts
+quantity.set(3);
+```
+
+👉 total automatically becomes **300**
+
+# 🎯 One-Line Answer
+
+> `computed()` is used to create a derived value that automatically updates when its dependent signals change.
 
 `computed()` is used to create **derived values** based on one or more signals.
 
@@ -117,6 +156,41 @@ Because it must stay pure.
 
 ## 🔹 What is effect()?
 
+# 🧠 2️⃣ `effect()` – Simple Meaning
+
+👉 **effect = run some action when signal changes**
+
+# 📦 Real-Life Example
+
+### Example: Door Alarm
+
+* Door opens → alarm rings
+
+👉 Action happens when state changes
+
+✔ That’s `effect()`
+
+# 💻 Code Example
+
+```ts
+const count = signal(0);
+
+effect(() => {
+  console.log("Count changed:", count());
+});
+```
+
+👉 When:
+```ts
+count.set(1);
+```
+
+👉 Console logs automatically
+
+# 🎯 One-Line Answer
+
+> `effect()` runs a function automatically whenever a signal value changes, mainly used for side effects like logging or API calls
+
 `effect()` runs automatically whenever dependent signals change.
 
 It is used for:
@@ -139,6 +213,42 @@ effect(() => {
 ```
 Whenever user changes → localStorage updates automatically.
 
+---
+
+# 🆚 Difference (Very Important for Interview)
+
+| Feature  | computed()      | effect()          |
+| -------- | --------------- | ----------------- |
+| Purpose  | Calculate value | Perform action    |
+| Returns  | Value           | Nothing           |
+| Use case | UI data         | API call, logging |
+
+---
+
+# 🧠 Easy Way to Remember
+
+* `signal` → value
+* `computed` → calculated value
+* `effect` → action
+
+---
+
+# 🔥 Real Angular Example
+
+```ts
+const price = signal(100);
+const quantity = signal(2);
+
+const total = computed(() => price() * quantity());
+
+effect(() => {
+  console.log("Total updated:", total());
+});
+```
+
+# 💬 Perfect Interview Answer (Short)
+
+> Signals store state, computed is used to derive values from signals, and effect is used to run side effects when signals change.
 
 ### Interview Explanation:
 

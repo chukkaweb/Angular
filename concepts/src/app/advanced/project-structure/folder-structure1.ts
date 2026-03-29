@@ -1,3 +1,7 @@
+// Project structure with cloude 
+// https://www.linkedin.com/posts/reshmawithai_im-writing-this-because-most-people-think-share-7443899122287349761-5oVQ
+
+// https://www.linkedin.com/posts/ileonjose_%F0%9D%97%9B%F0%9D%97%BC%F0%9D%98%84-%F0%9D%98%81%F0%9D%97%BC-%F0%9D%98%80%F0%9D%97%B2%F0%9D%98%81-%F0%9D%98%82%F0%9D%97%BD-%F0%9D%97%96%F0%9D%97%B9%F0%9D%97%AE%F0%9D%98%82%F0%9D%97%B1%F0%9D%97%B2-%F0%9D%97%96%F0%9D%97%BC-share-7440308248282374144-HAaV?utm_source=share&utm_medium=member_desktop&rcm=ACoAACuTRegBxXpHmDLzARonGNh0lhX9ZNhSdbg
 // src/
 // │
 // ├── app/               --> Core Application Folder

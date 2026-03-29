@@ -96,7 +96,6 @@ Usage:
 "I use Reactive Forms for complex forms, dynamic validation for conditional logic, and Signals for lightweight reactive UI updates."
 
 
-
 # 3️⃣ RxJS Operators (Must Know with Example)
 ## Ways to create observable
 
@@ -170,11 +169,7 @@ const subject = new BehaviorSubject('initial');
 subject.next('new value');
 ```
 
-
-
 # 4️⃣ Lifecycle Hooks & Interceptors
-
-
 
 ## Lifecycle Hooks Proper Use
 
