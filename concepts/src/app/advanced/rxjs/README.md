@@ -528,7 +528,6 @@ Everyone watches **same live stream**.
 
 
 # 13. Avoid Memory Leaks
-
 Methods
 * Use `takeUntil()` on component destroy.
 * Use `async` pipe in templates.

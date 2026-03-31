@@ -251,7 +251,7 @@
 // });
 // ```
 
-// ---
+// 
 
 // ## 🔹 mergeMap
 
@@ -280,7 +280,7 @@
 
 // All **3 API calls run in parallel**.
 
-// ---
+// 
 
 // # 2️⃣ `concat` vs `concatMap`
 
@@ -311,7 +311,7 @@
 // C
 // ```
 
-// ---
+// 
 
 // ## 🔹 concatMap
 
@@ -348,7 +348,7 @@
 
 // Requests run **one by one**.
 
-// ---
+// 
 
 // # 3️⃣ `combineLatest` vs `combineLatestAll`
 
@@ -383,7 +383,7 @@
 // });
 // ```
 
-// ---
+// 
 
 // ## 🔹 combineLatestAll
 
@@ -407,12 +407,12 @@
 // combineLatestAll -> combine their latest values
 // ```
 
-// ---
+// 
 
 // # 🧠 Easy Interview Trick (Very Important)
 
 // | Operator         | Meaning                          |
-// | ---------------- | -------------------------------- |
+// | - | -- |
 // | merge            | combine streams                  |
 // | mergeMap         | parallel API calls               |
 // | concat           | sequential Observables           |
@@ -420,7 +420,7 @@
 // | combineLatest    | combine latest values            |
 // | combineLatestAll | combine latest inner Observables |
 
-// ---
+// 
 
 // # 🎯 Super Simple Interview Answer (Best)
 
@@ -433,7 +433,7 @@
 // * **mergeMap → load users in parallel**
 // * **concatMap → process payments sequentially**
 
-// ---
+// 
 
 // # 💡 Senior Angular Interview Tip
 

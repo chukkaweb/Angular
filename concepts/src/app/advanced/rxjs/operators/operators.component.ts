@@ -76,8 +76,6 @@ export class OperatorsComponent implements OnInit {
 👉 `mergeMap`, `concatMap`, and `switchMap` (RxJS), with **use cases** 👇
 https://www.linkedin.com/posts/kishor-dhokade_rxjs-angular-frontenddevelopment-activity-7418195345035313152-2vKO?utm_source=share&utm_medium=member_android&rcm=ACoAACuTRegBxXpHmDLzARonGNh0lhX9ZNhSdbg
 
----
-
 ## 🔹 1. `mergeMap` – Run all requests in parallel
 
 ### 🧠 Use Case:
@@ -95,7 +93,6 @@ from([1, 2, 3]).pipe(
 👉 All API calls happen **together**.
 👉 Order is **not guaranteed**.
 
----
 
 ## 🔹 2. `concatMap` – Run requests one by one (in order)
 
@@ -114,7 +111,6 @@ from(files).pipe(
 👉 Next upload starts **only after** previous finishes.
 👉 Order is **maintained**.
 
----
 
 ## 🔹 3. `switchMap` – Cancel previous request and use the latest
 
@@ -134,21 +130,13 @@ this.searchControl.valueChanges.pipe(
 👉 Old API calls are **cancelled** when a new value comes.
 👉 Only the **latest result** is processed.
 
----
+
 
 ## 🟢 Simple Comparison Table:
 
 | Operator    | Behavior                | Real Example          |
-| ----------- | ----------------------- | --------------------- |
+| -- | -- |  |
 | `mergeMap`  | Parallel requests       | Load multiple users   |
 | `concatMap` | Sequential requests     | Upload files in order |
 | `switchMap` | Cancel old, keep latest | Search box API        |
-
----
-
-If you want, I can also give:
-
-* Error handling examples
-* Interview one-liners
-* Marble diagram visuals
 

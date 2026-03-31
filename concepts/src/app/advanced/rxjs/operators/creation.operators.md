@@ -49,8 +49,6 @@ Output
 
 Each value is emitted **as separate emissions**.
 
----
-
 ## Important Example
 
 ```ts
@@ -82,8 +80,6 @@ Example use cases:
 * Default values
 * Testing
 
----
-
 # 2️⃣ `from()` Operator
 
 ## Simple Meaning
@@ -95,15 +91,12 @@ from operator only take one input
 👉 It **emits each item individually from a collection**.
 
 Works with:
-
 * Arrays
 * Promises
 * Strings
 * Iterables
 * Sets
 * Maps
-
----
 
 ## Example
 
@@ -112,7 +105,6 @@ import { from } from 'rxjs';
 
 from([1,2,3]).subscribe(console.log);
 ```
-
 Output
 
 ```
@@ -120,10 +112,7 @@ Output
 2
 3
 ```
-
 Here each array element is **emitted separately**.
-
----
 
 ## Example with Promise
 
@@ -139,8 +128,6 @@ Output
 Hello
 ```
 
----
-
 ## Real Angular Example
 
 Converting API Promise to Observable:
@@ -152,18 +139,18 @@ from(apiCall)
 .subscribe(res => console.log(res));
 ```
 
----
+
 
 # 3️⃣ Key Difference (Interview Table)
 
 | Feature         | `of()`                          | `from()`                               |
-| --------------- | ------------------------------- | -------------------------------------- |
+|  | - | -- |
 | Purpose         | Emit given values               | Convert iterable/promise to observable |
 | Array handling  | Emits entire array as one value | Emits each element separately          |
 | Promise support | ❌ No                            | ✅ Yes                                  |
 | Common use      | Static values                   | Arrays, promises, iterables            |
 
----
+
 
 # 4️⃣ Best Interview Example
 
@@ -191,8 +178,6 @@ Output
 3
 ```
 
----
-
 # 5️⃣ Real Angular Use Case
 
 ### `of()` Example (Mock Data)
@@ -208,8 +193,6 @@ getUsers() {
 
 Used in **testing or fallback responses**.
 
----
-
 ### `from()` Example (Array Processing)
 
 ```ts
@@ -219,23 +202,17 @@ from(this.users)
 )
 .subscribe(console.log);
 ```
-
 Used when you want to **process items individually**.
-
----
 
 # 🎯 Perfect Short Interview Answer
 
 > `of()` creates an observable from the values we pass and emits them as they are, while `from()` converts arrays, promises, or iterables into observables and emits each item separately.
-
----
 
 # ⭐ Interview Trick Question
 
 ```ts
 of([1,2,3])
 ```
-
 vs
 
 ```ts
