@@ -1,3 +1,5 @@
+// Project struct Beginner vs Experince  https://www.linkedin.com/posts/fradj-bouain-4562a417a_angular-webdevelopment-softwarearchitecture-share-7451310928484130817-Uhg1?utm_source=share&utm_medium=member_android&rcm=ACoAACuTRegBxXpHmDLzARonGNh0lhX9ZNhSdbg
+
 // Project structure with cloude 
 // https://www.linkedin.com/posts/reshmawithai_im-writing-this-because-most-people-think-share-7443899122287349761-5oVQ
 
