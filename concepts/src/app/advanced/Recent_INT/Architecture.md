@@ -88,7 +88,10 @@ uppercaseName = computed(() => this.name().toUpperCase());
 Usage:
 
 ```html
-<input (input)="name.set($event.target.value)" />
+<input
+  [value]="name()"
+  (input)="name.set($any($event.target).value)"
+/>
 <p>{{ uppercaseName() }}</p>
 ```
 
