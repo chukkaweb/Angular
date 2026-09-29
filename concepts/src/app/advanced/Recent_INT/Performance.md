@@ -32,6 +32,20 @@ Now:
 * First call → API hit
 * Next calls → cached response
 
+Where exactly is it cached?
+In JavaScript memory inside the running application, managed internally by RxJS's sharing/replay mechanism.
+It is not stored in:
+- browser localStorage ❌
+- sessionStorage ❌
+- database ❌
+- server ❌
+- browser HTTP cache necessarily ❌
+It's essentially in-memory RxJS state associated with that observable.
+Why 1?
+shareReplay(1)
+
+means:
+Remember/replay the latest 1 emitted value to new subscribers.
 
 ## Real Use Case
 
@@ -127,9 +141,7 @@ getUsers(filter: string) {
 # 4️⃣ Change Detection + Reusable Components + Signals
 
 ## Default Change Detection
-
 Checks entire component tree → expensive.
-
 
 ## ✅ OnPush Strategy
 
