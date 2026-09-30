@@ -1,8 +1,6 @@
 
 First understand the direction
-
 Angular is moving broadly toward:
-
 Older Angular
 NgModules
 Zone.js
@@ -15,7 +13,6 @@ Traditional SSR
             ↓
 
 Modern Angular
-
 Standalone
 Signals
 Zoneless
@@ -27,8 +24,6 @@ SSR + Incremental Hydration
 
 You don't need to replace everything with the new APIs. The important interview skill is knowing when the newer approach helps.
 
-
----
 
 1. Signals — now core Angular
 
@@ -79,16 +74,10 @@ UI
 Interview point: Signals are excellent for synchronous application/UI state. This does not mean RxJS is obsolete.
 
 
----
-
 2. linkedSignal()
-
 This is one advanced signal concept worth knowing.
-
 Imagine:
-
 products = signal(['Laptop', 'Mobile']);
-
 selectedProduct = linkedSignal(() =>
   this.products()[0]
 );
@@ -96,9 +85,7 @@ selectedProduct = linkedSignal(() =>
 If the available products change, the selection can react to that source while still being writable.
 
 Real-world use
-
 Think:
-
 Available Countries
        ↓
 Selected Country
@@ -110,16 +97,10 @@ Selected Product
 Useful when state should have a default/relationship based on other reactive state, but the user can still change it.
 
 
----
-
 3. resource() / httpResource()
-
 Angular has been expanding Signals toward asynchronous data handling; these APIs are part of that direction. 
-
 Traditional Angular often looks like:
-
 users$ = this.http.get<User[]>('/api/users');
-
 Modern signal-oriented applications can use resource-style APIs to represent:
 
 Request
@@ -131,7 +112,6 @@ Data
 Error
 
 For example, conceptually:
-
 users = httpResource<User[]>(
   () => '/api/users'
 );
@@ -139,28 +119,19 @@ users = httpResource<User[]>(
 Then the UI can react to resource state.
 
 Real-world scenario
-
 Your page needs:
-
 /users/100
-
 and when user ID changes:
-
 100 → 200
 
 the resource can reactively fetch the corresponding data.
-
 Interview point: don't say "httpResource replaces HttpClient/RxJS." Think of it as a signal-oriented API for reactive async data scenarios.
 
 
----
-
 4. Zoneless Angular 🔴
-
 This is one of the biggest modern Angular topics.
 
 Traditional Angular relied heavily on:
-
 Zone.js
    ↓
 Something async happened
@@ -177,6 +148,7 @@ Angular knows
      ↓
 Update affected UI
 
+
 Angular 20.2 made zoneless stable, and Angular 21+ made zoneless the default. 
 
 In Angular 20 you could explicitly configure:
@@ -184,9 +156,7 @@ In Angular 20 you could explicitly configure:
 provideZonelessChangeDetection()
 
 Real-world benefit
-
 Imagine a huge dashboard:
-
 50 components
 charts
 tables
@@ -200,20 +170,13 @@ More explicit change notifications can reduce unnecessary synchronization work c
 Senior interview priority: 🔴 Very High
 
 Understand:
-
 Zone.js → Change Detection → OnPush → Signals → Zoneless
-
 as one connected topic.
 
-
----
-
 5. Signal Forms
-
 This is a major newer Angular direction.
 
 Traditional reactive forms:
-
 form = new FormGroup({
   name: new FormControl(''),
   email: new FormControl('')
@@ -222,7 +185,6 @@ form = new FormGroup({
 Signal Forms model form state using Signals.
 
 Conceptually:
-
 user = signal({
   name: '',
   email: ''
@@ -231,9 +193,7 @@ user = signal({
 userForm = form(this.user);
 
 Why?
-
 Form state naturally contains things like:
-
 value
 valid
 invalid
@@ -248,31 +208,19 @@ Real-world scenario
 Imagine an enterprise capacity-request form with:
 
 30 fields
-
 conditional fields
-
 validation
-
 calculated values
-
 dynamic sections
 
-
 Signal-based form state can integrate naturally with other signal-based application state.
-
 Signal Forms require Angular 21+, and Angular's current roadmap says they became stable in 2026 with interoperability improvements for progressive migration from reactive forms. 
 
 Important: Reactive Forms are still perfectly valid. Don't tell an interviewer they are deprecated.
 
-
----
-
 6. Incremental Hydration 🔴
-
 This matters for SSR/performance interviews.
-
 Normal SSR:
-
 Server
  ↓
 Generate HTML
@@ -515,8 +463,6 @@ Playwright
 
 Since you already have Playwright experience, this is worth mentioning.
 
-
----
 
 What should YOU prepare first?
 
