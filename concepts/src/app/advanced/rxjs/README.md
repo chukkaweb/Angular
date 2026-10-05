@@ -81,7 +81,7 @@ this.http.get('api/users').subscribe(data => console.log(data));
 * Listening to search input changes
 * Managing WebSocket connections
 
----
+
 
 # 2. What is an Observable? How is it different from a Promise?
 
@@ -91,7 +91,7 @@ A **stream of data** that can emit **multiple values over time**.
 ### Difference Table
 
 | Feature        | Observable        | Promise   |
-| -------------- | ----------------- | --------- |
+| -- | -- |  |
 | Emission       | Multiple values   | One value |
 | Lazy Execution | Yes               | Yes       |
 | Cancelable     | Yes (unsubscribe) | No        |
@@ -115,7 +115,7 @@ Output
 
 Live search input emits **multiple values**, so Observable is better than Promise.
 
----
+
 
 # 3. What is the use of `takeUntil()` operator?
 
@@ -142,7 +142,7 @@ ngOnDestroy() {
 
 Automatically unsubscribe when component is destroyed to prevent **memory leaks**.
 
----
+
 
 # 4. What is `forkJoin()` in RxJS?
 
@@ -170,7 +170,7 @@ Fetch:
 
 and show UI after both APIs finish.
 
----
+
 
 # 5. What is the difference between `tap()` and `map()`?
 
@@ -250,7 +250,7 @@ this.http.get('/api/user')
 .subscribe(console.log);
 ```
 
----
+
 
 ## tap() – Side Effects
 
@@ -294,23 +294,23 @@ this.http.get('/api/products')
 .subscribe();
 ```
 
----
+
 
 ### Key Difference
 
 | Feature       | map()          | tap()        |
-| ------------- | -------------- | ------------ |
+| - | -- |  |
 | Purpose       | Transform data | Side effects |
 | Changes value | Yes            | No           |
 | Return value  | Modified       | Same         |
 
----
+
 
 ### Perfect Interview Answer
 
 > map() transforms the data emitted by an observable, while tap() is used for side effects like logging or debugging without modifying the data stream.
 
----
+
 
 # 6. Cancel HTTP Requests using RxJS
 
@@ -384,7 +384,7 @@ Best Practices:
 # 10. mergeMap vs concatMap vs switchMap
 
 | Operator  | Behavior             | Use Case      |
-| --------- | -------------------- | ------------- |
+|  | -- | - |
 | mergeMap  | Parallel execution   | Multiple APIs |
 | concatMap | Sequential execution | Order matters |
 | switchMap | Cancel previous      | Search        |
@@ -495,7 +495,7 @@ this.users$.subscribe();
 # Easy Way to Remember (Interview Tip)
 
 | Cold Observable              | Hot Observable              |
-| ---------------------------- | --------------------------- |
+| - |  |
 | New execution per subscriber | Shared execution            |
 | Independent streams          | Shared stream               |
 | Example: HTTP request        | Example: Subject, WebSocket |
@@ -594,7 +594,7 @@ Avoid redundant API calls if user typed same value again.
 # 17. debounce vs throttle
 
 | Operator     | Behavior                      |
-| ------------ | ----------------------------- |
+|  | -- |
 | debounceTime | Waits until user stops typing |
 | throttleTime | Emits once per interval       |
 
@@ -686,118 +686,298 @@ this.searchControl.valueChanges.pipe(
 ).subscribe();
 ```
 
----
 
 # RxJS 7 Migration Notes
 
-### Major Changes
-- toPromise() removed/unsupported: replace with firstValueFrom() or lastValueFrom().
-- Improved and stricter TypeScript typings for operators and creation functions — custom operators often need explicit OperatorFunction types.
-- shareReplay pitfalls: prefer share({ connector: () => new ReplaySubject(1), resetOnRefCountZero: true }) or use shareReplay with explicit refCount patterns to avoid memory leaks.
-- Some deprecated internals were removed; library is stricter (may surface previously-silent typing issues).
-- Minor API additions/improvements and performance fixes; overall behavior is mostly compatible but typing and some edge semantics changed.
-- RxJS 7 requires newer TypeScript versions (check RxJS docs for exact minimum TS version; in many projects TS >= 4.x is required).
+## Major Changes
 
-### Migration Checklist (practical steps)
-1) Upgrade the package
-   npm install rxjs@^7.8.1
-   or
-   yarn add rxjs@^7.8.1
+- `toPromise()` is removed/unsupported.
+  - Replace it with `firstValueFrom()` or `lastValueFrom()`.
 
-3) Replace all toPromise usages
-   OLD (deprecated/removed in v7)
-   const result = await obs$.toPromise();
+- Improved and stricter TypeScript typings for operators and creation functions.
+  - Custom operators often need explicit `OperatorFunction` types.
 
-   ```
-   import { firstValueFrom, lastValueFrom } from 'rxjs';
+- `shareReplay` pitfalls:
+  - Prefer `share()` with a `ReplaySubject(1)` connector and explicit reset behavior.
+  - Or use `shareReplay` with explicit `refCount` patterns to avoid memory leaks.
 
-   If you expect a single emission and want the first value:
-   const result = await firstValueFrom(obs$);
+- Some deprecated internals were removed.
+  - RxJS is stricter and may expose previously silent typing issues.
 
-   If you want the final value after completion:
-   const final = await lastValueFrom(obs$);
+- Minor API additions, improvements, and performance fixes.
+  - Overall behavior is mostly compatible, but typing and some edge cases changed.
 
-   Provide timeout/fallback if necessary:
-   import { timeout } from 'rxjs/operators';
-   try {
-     const v = await firstValueFrom(obs$.pipe(timeout(5000)));
-   } catch (err) {
-     handle timeout or other errors
-   }
-   ```
+- RxJS 7 requires newer TypeScript versions.
+  - Check the RxJS documentation for the exact supported TypeScript version for your RxJS release.
 
-4) Fix custom operators typing (RxJS 7 has stricter typings):
+
+
+# Migration Checklist
+
+## 1. Upgrade RxJS
+
+Using npm:
+
+```bash
+npm install rxjs@^7.8.1
 ```
-   OLD (looser, sometimes inferred incorrectly)
-   function log<T>(msg: string) {
-     return tap((v: T) => console.log(msg, v));
-   }
 
-   NEW (explicit types; use OperatorFunction to preserve type inference)
-/   import { OperatorFunction } from 'rxjs';
+Using Yarn:
 
-   function log<T>(msg: string): OperatorFunction<T, T> {
-     return tap((v: T) => console.log(msg, v));
-   }
-
-   If your operator transforms types, be explicit:
-   import { map, OperatorFunction } from 'rxjs';
-   function userToName(): OperatorFunction<User, string> {
-     return map(u => u.name);
-   }
-   ```
-
-5) Replace/adjust shareReplay usage to avoid memory leaks
-   Problem: naive `shareReplay(1)` can keep the source subscription alive forever in some cases
-   Recommended pattern (RxJS 7): use `share` with a ReplaySubject connector and reset behavior
-   ```
-   import { share } from 'rxjs/operators';
-   import { ReplaySubject } from 'rxjs';
-
-   // safer replacement for shareReplay(1)
-   source$.pipe(
-     share({
-       connector: () => new ReplaySubject(1),
-       resetOnRefCountZero: true // ensures resources free when nobody is subscribed
-     })
-   )
-   ```
-
-   Alternatively, if you need the classic behavior and know the lifecycle, be explicit and document it.
-
-6) Run TypeScript build and tests, fix type errors (often from stricter operator typings)
-7) Remove `rxjs-compat` once migration is done and all imports/behaviors are updated.
-
----- Examples (RxJS 7 focused, not covered earlier) ----
-
-1) Replacing toPromise with firstValueFrom / lastValueFrom
-import { firstValueFrom, lastValueFrom, of, delay } from 'rxjs';
-
-// Example: wait for the first emission and use async/await
+```bash
+yarn add rxjs@^7.8.1
 ```
-async function fetchOnce() {
-  const obs$ = of({ id: 1 }).pipe(delay(10));
-  const value = await firstValueFrom(obs$); // resolves after first emission
-  console.log('firstValueFrom ->', value);
-}
 
-// Example: wait for the last value after completion
-async function waitForComplete() {
-  const obs$ = of(1, 2, 3).pipe(delay(10));
-  const last = await lastValueFrom(obs$); // resolves with 3 after completion
-  console.log('lastValueFrom ->', last);
+
+
+## 2. Replace `toPromise()`
+
+### Old
+
+```ts
+const result = await obs$.toPromise();
+```
+
+### New
+
+Import:
+
+```ts
+import {
+  firstValueFrom,
+  lastValueFrom
+} from 'rxjs';
+```
+
+### Get the First Value
+
+Use `firstValueFrom()` when you want the first emission.
+
+```ts
+const result = await firstValueFrom(obs$);
+```
+
+### Get the Last Value
+
+Use `lastValueFrom()` when you want the final value after the Observable completes.
+
+```ts
+const final = await lastValueFrom(obs$);
+```
+
+### With Timeout
+
+```ts
+import { firstValueFrom, timeout } from 'rxjs';
+
+try {
+  const value = await firstValueFrom(
+    obs$.pipe(
+      timeout(5000)
+    )
+  );
+} catch (error) {
+  // Handle timeout or another error
 }
 ```
 
-// 2) Safer shareReplay replacement using share with connector (recommended in v7)
-```
-import { Observable, ReplaySubject } from 'rxjs';
-import { share } from 'rxjs/operators';
+### Simple Memory
 
-function createSharedSource(source$: Observable<number>) {
+```text
+firstValueFrom()
+      ↓
+First value
+      ↓
+Promise resolves
+
+
+lastValueFrom()
+      ↓
+Wait for completion
+      ↓
+Last value
+      ↓
+Promise resolves
+```
+
+
+
+# 3. Fix Custom Operator Typing
+
+RxJS 7 has stricter TypeScript typings.
+
+## Old
+
+```ts
+function log<T>(msg: string) {
+  return tap((value: T) => {
+    console.log(msg, value);
+  });
+}
+```
+
+## New
+
+Use `OperatorFunction` explicitly.
+
+```ts
+import {
+  OperatorFunction,
+  tap
+} from 'rxjs';
+
+function log<T>(
+  msg: string
+): OperatorFunction<T, T> {
+
+  return tap((value: T) => {
+    console.log(msg, value);
+  });
+}
+```
+
+### Simple Meaning
+
+```text
+Input T
+  ↓
+Operator
+  ↓
+Output T
+```
+
+The type doesn't change.
+
+
+
+## Operator That Changes the Type
+
+Suppose:
+
+```text
+User
+ ↓
+Operator
+ ↓
+string
+```
+
+Example:
+
+```ts
+import {
+  map,
+  OperatorFunction
+} from 'rxjs';
+
+interface User {
+  id: number;
+  name: string;
+}
+
+function userToName(): OperatorFunction<User, string> {
+  return map(user => user.name);
+}
+```
+
+### Easy Memory
+
+```text
+OperatorFunction<Input, Output>
+```
+
+Example:
+
+```text
+OperatorFunction<User, string>
+```
+
+means:
+
+```text
+User → Operator → string
+```
+
+
+
+# 4. `shareReplay()` and Memory Leaks
+
+## Problem
+
+Naive usage such as:
+
+```ts
+shareReplay(1)
+```
+
+can keep a source subscription alive depending on its lifecycle/ref-count behavior.
+
+This can cause unnecessary retained resources for long-running sources.
+
+
+
+## Safer Explicit Pattern
+
+Use `share()` with a `ReplaySubject`.
+
+```ts
+import {
+  ReplaySubject,
+  share
+} from 'rxjs';
+
+source$.pipe(
+  share({
+    connector: () => new ReplaySubject(1),
+    resetOnRefCountZero: true
+  })
+);
+```
+
+### Simple Flow
+
+```text
+Source
+  ↓
+share()
+  ↓
+ReplaySubject(1)
+  ↓
+ ┌─────────────┐
+ ↓             ↓
+Subscriber A   Subscriber B
+```
+
+When nobody is subscribed:
+
+```text
+Subscribers = 0
+      ↓
+resetOnRefCountZero
+      ↓
+Release/reset source resources
+```
+
+
+
+## More Explicit Example
+
+```ts
+import {
+  Observable,
+  ReplaySubject,
+  share
+} from 'rxjs';
+
+function createSharedSource(
+  source$: Observable<number>
+) {
+
   return source$.pipe(
     share({
-      connector: () => new ReplaySubject<number>(1),
+      connector: () =>
+        new ReplaySubject<number>(1),
+
       resetOnComplete: true,
       resetOnError: true,
       resetOnRefCountZero: true
@@ -806,64 +986,793 @@ function createSharedSource(source$: Observable<number>) {
 }
 ```
 
-// 3) Example of a typed custom operator (preserves Typescript inference)
+### Meaning
+
+```text
+resetOnComplete
+→ reset after completion
+
+resetOnError
+→ reset after error
+
+resetOnRefCountZero
+→ reset when nobody is listening
 ```
-import { OperatorFunction, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-interface User { id: number; name: string; }
 
-function pluckName(): OperatorFunction<User, string> {
+
+# 5. Run TypeScript Build and Tests
+
+After upgrading:
+
+```text
+Upgrade RxJS
+    ↓
+Run TypeScript build
+    ↓
+Find type errors
+    ↓
+Fix operator typings
+    ↓
+Run unit tests
+    ↓
+Run integration tests
+```
+
+Common problems may come from:
+
+- Custom operators
+- Old APIs
+- Deprecated APIs
+- Incorrect type assumptions
+- Sharing/refCount behavior
+
+
+
+# 6. Remove `rxjs-compat`
+
+Once migration is complete:
+
+```text
+Old compatibility code
+        ↓
+Update imports/usages
+        ↓
+Verify application
+        ↓
+Remove rxjs-compat
+```
+
+`rxjs-compat` should only be a temporary migration bridge.
+
+
+
+# Examples
+
+## Example 1: `firstValueFrom()`
+
+```ts
+import {
+  firstValueFrom,
+  of,
+  delay
+} from 'rxjs';
+
+async function fetchOnce() {
+
+  const obs$ = of({
+    id: 1
+  }).pipe(
+    delay(10)
+  );
+
+  const value =
+    await firstValueFrom(obs$);
+
+  console.log(
+    'firstValueFrom ->',
+    value
+  );
+}
+```
+
+### Flow
+
+```text
+Observable
+   ↓
+First value arrives
+   ↓
+firstValueFrom()
+   ↓
+Promise resolves
+```
+
+
+
+# Example 2: `lastValueFrom()`
+
+```ts
+import {
+  lastValueFrom,
+  of,
+  delay
+} from 'rxjs';
+
+async function waitForComplete() {
+
+  const obs$ = of(
+    1,
+    2,
+    3
+  ).pipe(
+    delay(10)
+  );
+
+  const last =
+    await lastValueFrom(obs$);
+
+  console.log(
+    'lastValueFrom ->',
+    last
+  );
+}
+```
+
+Output:
+
+```text
+3
+```
+
+### Why?
+
+```text
+1
+↓
+2
+↓
+3
+↓
+Complete
+↓
+Return 3
+```
+
+
+
+# Example 3: Shared Source
+
+```ts
+import {
+  Observable,
+  ReplaySubject,
+  share
+} from 'rxjs';
+
+function createSharedSource(
+  source$: Observable<number>
+) {
+
+  return source$.pipe(
+    share({
+      connector: () =>
+        new ReplaySubject<number>(1),
+
+      resetOnComplete: true,
+      resetOnError: true,
+      resetOnRefCountZero: true
+    })
+  );
+}
+```
+
+
+
+# Example 4: Typed Custom Operator
+
+```ts
+import {
+  OperatorFunction,
+  map,
+  of
+} from 'rxjs';
+
+interface User {
+  id: number;
+  name: string;
+}
+
+function pluckName():
+  OperatorFunction<User, string> {
+
   return map(user => user.name);
 }
 ```
 
 Usage:
-of({ id: 1, name: 'Alice' }).pipe(pluckName()).subscribe(console.log);
 
----- Differences (concise list, 6.x -> 7.8.1) ----
-- toPromise: removed. Use firstValueFrom / lastValueFrom.
-- Typings: much stricter; OperatorFunction/MonoTypeOperatorFunction distinctions matter more — be explicit in custom operators.
-- shareReplay: previous default usage could cause retained subscriptions; RxJS 7 encourages share({...}) with a ReplaySubject connector and explicit reset logic.
-- Some deprecated internals removed — code relying on deprecated private APIs may break.
-- Runtime behavior: largely same, but some corner cases (resource resets, refCount semantics) changed for correctness.
-- Tooling: migration lint rules are available historically (rxjs-tslint rules) — use them to find patterns to update.
+```ts
+of({
+  id: 1,
+  name: 'Alice'
+})
+.pipe(
+  pluckName()
+)
+.subscribe(console.log);
+```
 
----- Interview Questions (RxJS 7 focused) ----
-- Q1: Why was toPromise removed and what should you use instead?
-* A1: toPromise was deprecated because it conflated Observable semantics with Promises (single resolution). RxJS 7 removes it in favor of firstValueFrom (resolves with first emission) and lastValueFrom (waits until completion and resolves with last value). These are explicit about intent and easier to reason about with async/await.
+Output:
 
-- Q2: How do you convert an Observable to a Promise that resolves on the first emission?
-- A2: Use firstValueFrom(obs$). Example: const val = await firstValueFrom(obs$);
+```text
+Alice
+```
 
-- Q3: What typing changes should you expect when migrating custom operators to RxJS 7?
-- A3: Typings are stricter. You should annotate custom operator functions with OperatorFunction<Input, Output> or MonoTypeOperatorFunction<T> when input and output types match. This preserves inference in pipe chains and avoids overload errors.
 
-- Q4: What's the `shareReplay` pitfall and how do you avoid it in RxJS 7?
-- A4: shareReplay(1) can keep the source observable subscribed even when there are no downstream subscribers (memory leak) depending on the refCount semantics. Instead, use share with a ReplaySubject connector and configure resetOnRefCountZero/resetOnComplete/resetOnError to free resources when appropriate. Example:
-   source$.pipe(share({ connector: () => new ReplaySubject(1), resetOnRefCountZero: true }))
 
-- Q5: What TypeScript version considerations are there when upgrading to RxJS 7?
-- A5: RxJS 7 leverages newer TS features; check RxJS release notes for exact minimum TypeScript version required. Many projects should be on TS >= 4.x. If your TS is too old, upgrade TypeScript first to avoid build/type errors.
+# RxJS 6 vs RxJS 7
 
-- Q6: How do firstValueFrom and lastValueFrom behave when the Observable errors or completes without emission?
-- A6: If the Observable errors before emitting, both functions will reject with that error. If you call lastValueFrom on an Observable that completes without emitting any value, it will reject (since there's no last value). Use firstValueFrom with a fallback (race with a timeout or default value) when necessary.
+| Topic | RxJS 6 | RxJS 7 |
+||||
+| Promise conversion | `toPromise()` | `firstValueFrom()` / `lastValueFrom()` |
+| Typings | Looser | Stricter |
+| Custom operators | Often inferred | Explicit typing may be needed |
+| Sharing | `shareReplay()` commonly used | More explicit sharing/reset patterns available |
+| Deprecated internals | Some remained | More removed |
+| TypeScript | Older versions possible | Newer TypeScript required |
+| Runtime | Existing behavior | Mostly compatible with some edge-case changes |
 
-- Q7: Do you need rxjs-compat to migrate to 7.x?
-- A7: rxjs-compat is a compatibility layer helpful for big codebases that can't migrate all at once. It's a temporary convenience — the long-term goal is to update imports/usages and remove rxjs-compat.
 
-- Q8: What are common runtime regressions when moving to RxJS 7 and how to catch them?
-- A8: Typical issues are memory leaks from naive shareReplay, type errors surfacing previously-ignored mismatches, and subtle change in refCount/reset behavior. Catch them with thorough unit tests, run lint/typechecks, check long-running integration flows, and monitor memory usage in staging.
 
-- Q9: What should you check in a codebase that heavily uses custom RxJS operators before upgrading?
-- A9: Ensure custom operators are correctly typed (OperatorFunction), examine any use of internal RxJS APIs (avoid private APIs), and verify code that relied on implicit any-type behavior still compiles under stricter typings.
+# Interview Questions
 
-- Q10: How to safely replace toPromise usage in async functions that awaited Observables?
-- A10: Replace await obs$.toPromise() with await firstValueFrom(obs$) if you want the first emission. If previous code relied on last emission, use lastValueFrom. Also handle timeout/error cases explicitly to avoid hung awaits.
+## Q1. Why was `toPromise()` removed, and what should we use?
 
----- Final notes & tips ----
-- Start by upgrading dev environment (TypeScript) to the supported version for RxJS 7.
-- Run the type checker early — many issues are typing-related and fixable by adding OperatorFunction signatures or small API replacements.
-- Replace toPromise usages first (they are simple to find and change), then address shareReplay patterns.
-- Keep rxjs-compat only as a short-term bridge; remove it promptly once migration is completed.
-- Add unit/integration tests focused on long-running flows to catch refCount/resource issues.
+### Answer
+
+`toPromise()` was deprecated because converting an Observable to a Promise could be ambiguous about which Observable value should be used.
+
+RxJS provides explicit alternatives:
+
+```text
+firstValueFrom()
+→ First emission
+
+lastValueFrom()
+→ Last emission after completion
+```
+
+Example:
+
+```ts
+const first =
+  await firstValueFrom(obs$);
+
+const last =
+  await lastValueFrom(obs$);
+```
+
+
+
+# Q2. How do you convert an Observable to a Promise using the first emission?
+
+### Answer
+
+Use:
+
+```ts
+const value =
+  await firstValueFrom(obs$);
+```
+
+### Easy Memory
+
+```text
+Observable
+↓
+First value
+↓
+Promise
+```
+
+
+
+# Q3. What typing changes should we expect when migrating custom operators?
+
+### Answer
+
+RxJS 7 has stricter TypeScript typings.
+
+For custom operators, explicitly defining the operator type can help preserve correct type inference.
+
+Example:
+
+```ts
+OperatorFunction<Input, Output>
+```
+
+If input and output are the same type, `MonoTypeOperatorFunction<T>` can also be appropriate.
+
+
+
+# Q4. What is the `shareReplay()` pitfall?
+
+### Answer
+
+Depending on how it is configured and the source lifecycle, a shared/replayed source may remain subscribed longer than intended.
+
+For long-running sources, this can retain resources.
+
+An explicit sharing pattern is:
+
+```ts
+source$.pipe(
+  share({
+    connector: () =>
+      new ReplaySubject(1),
+
+    resetOnRefCountZero: true
+  })
+)
+```
+
+### Easy Memory
+
+```text
+Nobody listening
+      ↓
+Reset source
+      ↓
+Release resources
+```
+
+
+
+# Q5. What TypeScript considerations exist when upgrading RxJS?
+
+### Answer
+
+RxJS 7 uses newer TypeScript features and stricter typings.
+
+Before migration:
+
+```text
+Check RxJS version
+      ↓
+Check supported TypeScript version
+      ↓
+Upgrade TypeScript if required
+      ↓
+Upgrade RxJS
+```
+
+Then run the TypeScript build and fix errors.
+
+
+
+# Q6. What happens if `firstValueFrom()` or `lastValueFrom()` receives an error?
+
+### Answer
+
+If the Observable errors:
+
+```text
+Observable
+↓
+Error ❌
+↓
+Promise rejects
+```
+
+Both can reject with the Observable error.
+
+
+
+## What if the Observable completes without emitting?
+
+There is no value available.
+
+The Promise can reject because no value was emitted.
+
+If needed, design an appropriate:
+
+```text
+Default value
+Timeout
+Error handling
+```
+
+strategy.
+
+
+
+# Q7. Do we need `rxjs-compat`?
+
+### Answer
+
+It may be useful temporarily during migration of a large legacy application.
+
+But:
+
+```text
+rxjs-compat
+     ↓
+Temporary bridge
+     ↓
+Migrate old code
+     ↓
+Remove rxjs-compat
+```
+
+It should not normally be the final solution.
+
+
+
+# Q8. What problems should we watch for after upgrading?
+
+### Answer
+
+Check for:
+
+```text
+TypeScript errors
+Custom operator errors
+Deprecated API usage
+Sharing/refCount behavior
+Long-running subscriptions
+Memory/resource issues
+```
+
+Use:
+
+```text
+Type checking
+Unit tests
+Integration tests
+Application testing
+Memory monitoring
+```
+
+
+
+# Q9. What should we check if the project has many custom RxJS operators?
+
+### Answer
+
+Check:
+
+1. Operator typings
+2. `OperatorFunction`
+3. `MonoTypeOperatorFunction`
+4. Deprecated APIs
+5. Internal/private RxJS APIs
+6. Type inference
+7. Unit tests
+
+
+
+# Q10. How do you safely replace `toPromise()`?
+
+First understand what the old code expects.
+
+### Need first emission?
+
+```ts
+await firstValueFrom(obs$);
+```
+
+### Need final emission?
+
+```ts
+await lastValueFrom(obs$);
+```
+
+Don't blindly replace everything with the same function.
+
+Ask:
+
+```text
+Do I need FIRST?
+       ↓
+firstValueFrom()
+
+
+Do I need LAST after completion?
+       ↓
+lastValueFrom()
+```
+
+
+
+# Scenario-Based Questions
+
+## Scenario 1
+
+You have:
+
+```ts
+const user =
+  await user$.toPromise();
+```
+
+You only need the first user emitted.
+
+### Solution
+
+```ts
+const user =
+  await firstValueFrom(user$);
+```
+
+
+
+# Scenario 2
+
+Observable emits:
+
+```text
+10
+20
+30
+40
+Complete
+```
+
+You need:
+
+```text
+40
+```
+
+### Solution
+
+```ts
+const value =
+  await lastValueFrom(obs$);
+```
+
+
+
+# Scenario 3
+
+You have a long-running shared Observable.
+
+When all components are destroyed, you don't want the source to remain unnecessarily active.
+
+### Possible Solution
+
+Use explicit sharing/reset behavior:
+
+```ts
+source$.pipe(
+  share({
+    connector: () =>
+      new ReplaySubject(1),
+
+    resetOnRefCountZero: true
+  })
+)
+```
+
+
+
+# Scenario 4
+
+Custom operator accepts:
+
+```text
+User
+```
+
+and returns:
+
+```text
+string
+```
+
+### Type
+
+```ts
+OperatorFunction<User, string>
+```
+
+
+
+# Cross Questions
+
+## `firstValueFrom()` vs `lastValueFrom()`?
+
+```text
+firstValueFrom
+→ resolves on first emission
+
+lastValueFrom
+→ waits for completion
+→ resolves with last emission
+```
+
+
+
+## What happens if `lastValueFrom()` is used with an Observable that never completes?
+
+It keeps waiting.
+
+Example:
+
+```text
+WebSocket
+↓
+Never completes
+↓
+lastValueFrom()
+↓
+Keeps waiting
+```
+
+This is why you should understand the source before using `lastValueFrom()`.
+
+
+
+## Can `firstValueFrom()` also wait forever?
+
+Yes.
+
+If the Observable:
+
+```text
+Doesn't emit
+AND
+doesn't complete
+```
+
+then it can keep waiting.
+
+A timeout may be appropriate:
+
+```ts
+await firstValueFrom(
+  obs$.pipe(
+    timeout(5000)
+  )
+);
+```
+
+
+
+## Is `shareReplay(1)` always a memory leak?
+
+No.
+
+The problem depends on:
+
+```text
+Source type
+Source lifetime
+Subscriber lifetime
+Configuration
+```
+
+Don't say in an interview:
+
+> `shareReplay(1)` always causes memory leaks.
+
+Better:
+
+> For long-lived sources, I pay attention to subscription lifetime and refCount/reset behavior when sharing and replaying values.
+
+
+
+# Migration Flow
+
+```text
+Check Angular / TypeScript compatibility
+              ↓
+          Upgrade RxJS
+              ↓
+        Find toPromise()
+              ↓
+ firstValueFrom / lastValueFrom
+              ↓
+      Run TypeScript build
+              ↓
+       Fix typing errors
+              ↓
+   Review custom operators
+              ↓
+ Review share/shareReplay usage
+              ↓
+          Run tests
+              ↓
+Check long-running subscriptions
+              ↓
+      Remove rxjs-compat
+```
+
+
+
+# Quick Interview Cheat Sheet
+
+```text
+toPromise()
+    ↓
+Removed / migrate away
+
+Need first value?
+    ↓
+firstValueFrom()
+
+Need final value?
+    ↓
+lastValueFrom()
+
+
+Custom operator?
+    ↓
+OperatorFunction<Input, Output>
+
+
+Input = Output?
+    ↓
+MonoTypeOperatorFunction<T>
+
+
+Need shared latest value?
+    ↓
+shareReplay / share + ReplaySubject
+
+
+Long-running shared source?
+    ↓
+Think about refCount/reset/lifecycle
+
+
+Nobody subscribed?
+    ↓
+Consider whether source should disconnect/reset
+
+
+Migration?
+    ↓
+Upgrade
+→ Compile
+→ Fix types
+→ Test
+→ Check subscriptions
+→ Remove compatibility code
+```
+
+
+
+# Final Notes
+
+- Replace `toPromise()` with `firstValueFrom()` or `lastValueFrom()` based on the required behavior.
+- Don't blindly replace all `toPromise()` usages with one function.
+- Run the TypeScript compiler early during migration.
+- Explicitly type custom operators when necessary.
+- Review `shareReplay` and long-running shared Observables carefully.
+- Check subscription/resource lifecycle.
+- Use `rxjs-compat` only as a temporary migration bridge.
+- Run unit and integration tests after migration.
+
+## Most Important Interview Topics
+
+Focus especially on:
+
+```text
+toPromise
+      ↓
+firstValueFrom / lastValueFrom
+
+Custom operator typing
+      ↓
+OperatorFunction
+
+shareReplay
+      ↓
+refCount / lifecycle / memory
+
+Migration
+      ↓
+Type checking + testing
+```
