@@ -24,16 +24,16 @@ Schedulers: are centralized dispatchers to control concurrency, allowing us to c
 5. Subjects: A special type of observable that acts as both an observable and observer. It can multicast to multiple subscribers.
 
 ### How is RxJS used in Real-Time?
-HTTP requests: Manage API calls in Angular applications, handling responses and error handling asynchronously.
-Event streams: Handle UI events like clicks, scrolls, and typing with reactive operators like `debounceTime`, `throttleTime`.
-WebSocket connections: Continuously listen to server updates or push notifications.
-Form data: Manage changes in form inputs with real-time validation or suggestions.
-State management: Used in combination with libraries like NgRx for handling state across complex Angular apps.
+1. HTTP requests: Manage API calls in Angular applications, handling responses and error handling asynchronously.
+2. Event streams: Handle UI events like clicks, scrolls, and typing with reactive operators like `debounceTime`, `throttleTime`.
+3. WebSocket connections: Continuously listen to server updates or push notifications.
+4. Form data: Manage changes in form inputs with real-time validation or suggestions.
+5. State management: Used in combination with libraries like NgRx for handling state across complex Angular apps.
 
 ### Common Use Cases:
-Real-time data: Stream live data (e.g., chat messages, notifications).
-Auto-complete: Use operators like `debounceTime()` and `switchMap()` to fetch suggestions while a user types.
-Polling APIs: Set intervals to fetch data periodically using `interval()` or `timer()` operators.
+1. Real-time data: Stream live data (e.g., chat messages, notifications).
+2. Auto-complete: Use operators like `debounceTime()` and `switchMap()` to fetch suggestions while a user types.
+3. Polling APIs: Set intervals to fetch data periodically using `interval()` or `timer()` operators.
   
 ### Example:
 import { of, fromEvent } from 'rxjs';
